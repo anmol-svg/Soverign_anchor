@@ -116,9 +116,20 @@
         </a>
     </p>
 </div>
-<a href="https://docs.google.com/spreadsheets/d/1-nNFN_-PSw2Os1NLsg9XMTNTxbvYTT4wsiaWbEUnCaM/edit?usp=sharing"
-   target="_blank"
-   style="position: fixed; bottom: 10px; right: 10px; width: 20px; height: 20px; opacity: 0;">
-</a>
+<script>
+function accessResearch() {
+    var password = prompt("Enter Access Code:");
+
+    if (password === "anchor0000") {
+        window.open("https://docs.google.com/spreadsheets/d/1-nNFN_-PSw2Os1NLsg9XMTNTxbvYTT4wsiaWbEUnCaM/edit?usp=sharing", "_blank");
+    } else if (password !== null) {
+        alert("Access Denied");
+    }
+}
+</script>
+
+<div onclick="accessResearch()"
+     style="position: fixed; bottom: 10px; right: 10px; width: 25px; height: 25px; opacity: 0.01; cursor: pointer;">
+</div>
 </body>
 </html>
