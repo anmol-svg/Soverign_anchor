@@ -4,125 +4,769 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sovereign Anchor Holding | Established 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=IM+Fell+English:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
-        /* THE BORING AESTHETIC */
-        body { 
-            background-color: #F5F5DC; /* Beige */
-            font-family: "Georgia", "Times New Roman", serif; 
-            margin: 0 auto; 
-            max-width: 900px; 
-            padding: 80px 50px; 
-            line-height: 1.8; 
-            color: #222; 
-            scroll-behavior: smooth;
-        }
 
-        /* TYPOGRAPHY */
-        h1 { font-size: 36px; margin: 0; font-weight: normal; letter-spacing: 1px; }
-        h2 { font-size: 24px; margin-top: 60px; border-bottom: 2px solid #000; padding-bottom: 5px; display: inline-block; }
-        h3 { font-size: 20px; margin-top: 40px; font-style: italic; color: #444; }
-        p { margin-bottom: 20px; text-align: justify; }
+/* ════════════════════════════════════════════════════
+   TOKENS
+════════════════════════════════════════════════════ */
+:root {
+    --vellum:       #F0E6CC;
+    --vellum-mid:   #E6D8B4;
+    --vellum-deep:  #D4C090;
+    --vellum-darkest:#C4AD7A;
+    --ink:          #18100A;
+    --ink-mid:      #2C1E10;
+    --ink-soft:     #4A3520;
+    --ink-faint:    #7A6044;
+    --crimson:      #6B1520;
+    --crimson-mid:  #8B2030;
+    --crimson-light:#A03040;
+    --gold:         #8C6B20;
+    --gold-mid:     #B8900A;
+    --gold-bright:  #D4A820;
+    --gold-pale:    #E8C870;
+    --gold-lightest:#F5E4A8;
+    --margin-w:     220px;
+}
 
-        /* SPECIAL ELEMENTS */
-        .header-container { text-align: center; border-bottom: 4px double #000; padding-bottom: 40px; margin-bottom: 60px; }
-        .sub-head { font-size: 14px; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px; }
-        
-        .philosophy-box { 
-            background-color: #EBE7D5; 
-            border-left: 5px solid #551A8B; /* Deep purple for wisdom */
-            padding: 30px; 
-            margin: 40px 0; 
-            font-size: 18px; 
-            font-style: italic;
-        }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
-        .darwin-note {
-            font-size: 15px;
-            color: #555;
-            border-top: 1px solid #999;
-            border-bottom: 1px solid #999;
-            padding: 20px 0;
-            margin: 40px 0;
-            text-align: center;
-        }
+/* ════════════════════════════════════════════════════
+   AGED VELLUM BODY
+════════════════════════════════════════════════════ */
+body {
+    background-color: var(--vellum);
+    background-image:
+        radial-gradient(ellipse 90% 50% at 10% 15%, rgba(160,120,40,0.13) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 70% at 90% 80%, rgba(130,90,30,0.10) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0.2'/%3E%3C/filter%3E%3Crect width='500' height='500' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+    font-family: "IM Fell English", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.9;
+    color: var(--ink);
+    min-height: 100vh;
+}
 
-        /* NAVIGATION & LINKS */
-        a { color: #0000EE; text-decoration: underline; cursor: pointer; }
-        a:hover { color: #551A8B; }
-        ul { list-style-type: square; padding-left: 20px; }
-        li { margin-bottom: 12px; }
-        
-        .footer { margin-top: 120px; font-size: 13px; text-align: center; border-top: 1px solid #000; padding-top: 30px; }
+/* ════════════════════════════════════════════════════
+   FIXED ILLUMINATED BORDER
+════════════════════════════════════════════════════ */
+.manuscript-border {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 999;
+}
+.manuscript-border svg { width: 100%; height: 100%; }
+
+/* ════════════════════════════════════════════════════
+   TWO-COLUMN LAYOUT
+════════════════════════════════════════════════════ */
+.page-outer {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 70px 60px 120px;
+    animation: pageReveal 1.4s ease both;
+}
+@keyframes pageReveal { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+
+.full-bleed { width: 100%; }
+
+.body-row {
+    display: grid;
+    grid-template-columns: var(--margin-w) 1fr;
+    gap: 0 52px;
+    align-items: start;
+}
+
+.margin-col {
+    padding-top: 6px;
+    position: sticky;
+    top: 80px;
+}
+.margin-note {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 13.5px;
+    font-style: italic;
+    color: var(--ink-faint);
+    line-height: 1.65;
+    border-left: 2px solid var(--gold-pale);
+    padding-left: 12px;
+    margin-bottom: 28px;
+}
+.margin-label {
+    font-family: "Cinzel", serif;
+    font-size: 8px;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+    display: block;
+}
+.margin-ornament {
+    text-align: right;
+    font-size: 18px;
+    color: var(--gold);
+    opacity: 0.5;
+    margin-top: 20px;
+}
+
+.text-col { min-width: 0; }
+
+/* ════════════════════════════════════════════════════
+   TYPOGRAPHY
+════════════════════════════════════════════════════ */
+p { margin-bottom: 22px; text-align: justify; hyphens: auto; color: var(--ink-mid); }
+b, strong { color: var(--ink); font-weight: 600; }
+
+.drop-cap::first-letter {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 78px;
+    font-weight: 700;
+    float: left;
+    line-height: 0.72;
+    margin: 10px 10px 0 0;
+    color: var(--crimson);
+    text-shadow: 1px 1px 0 var(--gold-pale);
+}
+
+h2 {
+    font-family: "Cinzel", serif;
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--crimson);
+    margin-bottom: 16px;
+    text-align: center;
+    padding: 12px 0;
+    position: relative;
+}
+h2::before, h2::after {
+    content: ''; position: absolute; left: 0; right: 0; height: 1px;
+}
+h2::before { top: 0;    background: linear-gradient(to right, transparent, var(--gold-mid) 20%, var(--gold-mid) 80%, transparent); }
+h2::after  { bottom: 0; background: linear-gradient(to right, transparent, var(--vellum-deep) 20%, var(--vellum-deep) 80%, transparent); }
+
+h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 23px; font-weight: 500; font-style: italic;
+    color: var(--crimson-mid);
+    margin-top: 40px; margin-bottom: 12px;
+    padding-left: 18px;
+    border-left: 3px solid var(--gold-pale);
+}
+h3 .numeral {
+    font-family: "Cinzel", serif;
+    font-size: 9px; font-style: normal;
+    letter-spacing: 3px; color: var(--gold);
+    display: block; margin-bottom: 3px;
+}
+
+/* ════════════════════════════════════════════════════
+   HEADER
+════════════════════════════════════════════════════ */
+.royal-crest { text-align: center; margin-bottom: 22px; padding-top: 10px; }
+
+.proclamation-banner {
+    text-align: center;
+    background: linear-gradient(180deg, var(--crimson) 0%, var(--crimson-mid) 50%, var(--crimson) 100%);
+    border-top: 2px solid var(--gold-bright);
+    border-bottom: 2px solid var(--gold-bright);
+    padding: 14px 40px;
+    position: relative;
+}
+.proclamation-banner::before {
+    content: '';
+    position: absolute;
+    inset: 4px 0;
+    border-top: 1px solid rgba(232,200,112,0.3);
+    border-bottom: 1px solid rgba(232,200,112,0.3);
+    pointer-events: none;
+}
+.sub-head {
+    font-family: "Cinzel", serif;
+    font-size: 10px; letter-spacing: 7px;
+    text-transform: uppercase; color: var(--gold-lightest);
+}
+
+.header-container { text-align: center; padding: 36px 0 48px; }
+h1 {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 28px; font-weight: 400;
+    color: var(--ink); line-height: 1.3; margin-bottom: 10px;
+}
+.est-line {
+    font-family: "Cinzel", serif;
+    font-size: 9px; letter-spacing: 5px;
+    color: var(--gold); text-transform: uppercase; margin-top: 12px;
+}
+
+/* ════════════════════════════════════════════════════
+   PHILOSOPHY BOX
+════════════════════════════════════════════════════ */
+.philosophy-box {
+    position: relative;
+    background: linear-gradient(160deg, var(--vellum-mid) 0%, var(--vellum-deep) 100%);
+    border: 1px solid var(--gold-mid);
+    padding: 46px 52px 42px 58px;
+    margin: 48px 0;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 21px; font-style: italic; font-weight: 400;
+    color: var(--ink); line-height: 1.8;
+    box-shadow: inset 0 0 40px rgba(140,100,30,0.08), 2px 4px 18px rgba(0,0,0,0.12);
+}
+.philosophy-box::before {
+    content: ''; position: absolute; inset: 5px;
+    border: 1px solid rgba(140,107,32,0.22); pointer-events: none;
+}
+.philosophy-box .corner { position: absolute; width: 22px; height: 22px; }
+.philosophy-box .corner svg { width: 22px; height: 22px; }
+.philosophy-box .c-tl { top: -1px; left: -1px; }
+.philosophy-box .c-tr { top: -1px; right: -1px; transform: scaleX(-1); }
+.philosophy-box .c-bl { bottom: -1px; left: -1px; transform: scaleY(-1); }
+.philosophy-box .c-br { bottom: -1px; right: -1px; transform: scale(-1,-1); }
+.drop-quote {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 86px; line-height: 0.75;
+    color: var(--crimson); opacity: 0.13;
+    position: absolute; top: 14px; left: 12px;
+    user-select: none; font-style: normal;
+}
+
+/* ════════════════════════════════════════════════════
+   IMAGE BLOCKS
+════════════════════════════════════════════════════ */
+.image-block {
+    margin: 60px 0;
+    position: relative;
+}
+.image-block img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    filter: sepia(40%) contrast(1.08) brightness(0.90);
+    border: 1px solid var(--gold-mid);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.22);
+    transition: filter 0.5s ease;
+}
+.image-block img:hover {
+    filter: sepia(20%) contrast(1.05) brightness(0.95);
+}
+.image-caption {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 13.5px; font-style: italic;
+    color: var(--ink-faint);
+    text-align: center;
+    padding: 12px 30px 0;
+    letter-spacing: 0.3px;
+    line-height: 1.7;
+}
+.image-caption b {
+    font-style: normal;
+    color: var(--ink-soft);
+    font-weight: 500;
+}
+
+/* Paired images */
+.image-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 52px 0;
+}
+.image-pair img {
+    width: 100%; height: 260px;
+    object-fit: cover;
+    filter: sepia(40%) contrast(1.08) brightness(0.88);
+    border: 1px solid var(--gold-mid);
+    box-shadow: 0 3px 18px rgba(0,0,0,0.16);
+    display: block;
+    transition: filter 0.5s ease;
+}
+.image-pair img:hover {
+    filter: sepia(15%) contrast(1.05) brightness(0.95);
+}
+.image-pair-caption {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 13px; font-style: italic;
+    color: var(--ink-faint);
+    text-align: center;
+    padding-top: 8px;
+    line-height: 1.65;
+}
+.image-pair-caption b {
+    font-style: normal;
+    color: var(--ink-soft);
+    font-weight: 500;
+}
+
+/* ════════════════════════════════════════════════════
+   DARWIN NOTE
+════════════════════════════════════════════════════ */
+.darwin-note {
+    text-align: center;
+    padding: 28px 0;
+    margin: 52px 0;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 18.5px; font-style: italic;
+    color: var(--ink-soft); line-height: 2;
+}
+.drow {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 18px;
+}
+.drow.bot { margin-top: 18px; margin-bottom: 0; }
+.drow .dline { flex:1; height:1px; background: linear-gradient(to right, transparent, var(--gold-mid) 40%, var(--gold-mid) 60%, transparent); }
+.drow .dsym { font-family:"Cinzel",serif; font-size:9px; letter-spacing:5px; color:var(--gold); }
+.darwin-note b { color: var(--crimson); font-weight:500; font-style:normal; }
+
+/* ════════════════════════════════════════════════════
+   CHAPTER OPENER
+════════════════════════════════════════════════════ */
+.chapter-opener {
+    margin: 80px 0 56px;
+    padding: 50px 60px;
+    background: linear-gradient(135deg, var(--crimson) 0%, #4A0E16 100%);
+    border: 1px solid var(--gold-mid);
+    position: relative;
+    overflow: hidden;
+}
+.chapter-opener::before {
+    content: '';
+    position: absolute; inset: 6px;
+    border: 1px solid rgba(232,200,112,0.2);
+    pointer-events: none;
+}
+.chapter-opener .chap-num {
+    font-family: "Cinzel", serif;
+    font-size: 9px; letter-spacing: 6px;
+    color: var(--gold-pale); opacity: 0.7;
+    text-transform: uppercase; display: block; margin-bottom: 14px;
+}
+.chapter-opener h2 {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 24px; font-weight: 400;
+    color: var(--gold-lightest);
+    letter-spacing: 0.5px; text-align: left;
+    padding: 0; margin: 0;
+}
+.chapter-opener h2::before, .chapter-opener h2::after { display: none; }
+.chapter-opener .chap-sub {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 16px; font-style: italic;
+    color: var(--gold-pale); opacity: 0.75;
+    margin-top: 10px;
+}
+.chapter-opener .chap-watermark {
+    position: absolute; right: 40px; top: 50%;
+    transform: translateY(-50%);
+    font-family: "Cinzel Decorative", serif;
+    font-size: 110px; font-weight: 700;
+    color: rgba(232,200,112,0.06);
+    user-select: none; line-height: 1;
+}
+
+/* ════════════════════════════════════════════════════
+   LISTS
+════════════════════════════════════════════════════ */
+ul { list-style: none; padding-left: 0; margin: 22px 0; }
+li { position: relative; padding-left: 30px; margin-bottom: 16px; color: var(--ink-mid); }
+li::before { content:'⚜'; position:absolute; left:0; top:1px; font-size:12px; color:var(--gold); }
+
+.archive-list li {
+    padding: 14px 0 14px 30px;
+    border-bottom: 1px solid var(--vellum-deep);
+    transition: all .25s;
+}
+.archive-list li:first-child { border-top: 1px solid var(--vellum-deep); }
+.archive-list li:hover { padding-left: 40px; background: linear-gradient(to right, rgba(107,21,32,0.04), transparent); }
+.archive-list li::before { content:'❧'; font-size:14px; color:var(--crimson); top:50%; transform:translateY(-50%); }
+a {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 17.5px; color: var(--ink-mid);
+    text-decoration: none; border-bottom: 1px solid var(--gold-pale);
+    transition: color .2s, border-color .2s;
+}
+a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
+
+/* ════════════════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════════════════ */
+.footer { margin-top: 100px; text-align: center; }
+.footer p {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 19px; font-style: italic;
+    color: var(--ink-soft); margin: 26px 0 18px;
+}
+.footer-mark {
+    font-family: "Cinzel", serif;
+    font-size: 9px; letter-spacing: 5px; color: var(--gold);
+}
+
+.svg-divider { width: 100%; margin: 44px 0; display: block; }
+
+/* ════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════ */
+@media (max-width: 760px) {
+    .body-row { grid-template-columns: 1fr; }
+    .margin-col { display: none; }
+    .image-pair { grid-template-columns: 1fr; }
+    .page-outer { padding: 50px 24px 80px; }
+    :root { --margin-w: 0px; }
+    .image-block img { height: 240px; }
+    .image-pair img { height: 200px; }
+}
     </style>
 </head>
 <body>
 
-    <div class="header-container">
-        <div class="sub-head">Sovereign Anchor Holding</div>
-        <h1>A Study of Reality & Value</h1>
-        <p style="text-align: center; margin-top: 10px;">Established January 1, 2026</p>
+<!-- ══ ILLUMINATED BORDER ══ -->
+<div class="manuscript-border">
+<svg viewBox="0 0 1000 650" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gH" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#8C6B20" stop-opacity="0"/>
+      <stop offset="18%"  stop-color="#D4A820" stop-opacity="0.85"/>
+      <stop offset="50%"  stop-color="#D4A820"/>
+      <stop offset="82%"  stop-color="#D4A820" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#8C6B20" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="gV" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#8C6B20" stop-opacity="0"/>
+      <stop offset="18%"  stop-color="#D4A820" stop-opacity="0.85"/>
+      <stop offset="50%"  stop-color="#D4A820"/>
+      <stop offset="82%"  stop-color="#D4A820" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#8C6B20" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="10" y="10" width="980" height="630" fill="none" stroke="url(#gH)" stroke-width="1.4"/>
+  <rect x="18" y="18" width="964" height="614" fill="none" stroke="#C4941A" stroke-width="0.6" stroke-opacity="0.45"/>
+  <rect x="23" y="23" width="954" height="604" fill="none" stroke="#C4941A" stroke-width="0.3" stroke-opacity="0.25"/>
+  <polyline points="10,80 10,10 80,10" fill="none" stroke="#D4A820" stroke-width="2"/>
+  <polyline points="20,75 20,20 75,20" fill="none" stroke="#C4941A" stroke-width="0.8" opacity="0.5"/>
+  <path d="M10,10 Q32,20 24,40 Q16,55 30,50 Q44,45 36,28" fill="none" stroke="#B8900A" stroke-width="1.2" opacity="0.65"/>
+  <circle cx="10" cy="10" r="5" fill="#D4A820" opacity="0.65"/>
+  <circle cx="10" cy="10" r="2.2" fill="#F5E4A8" opacity="0.9"/>
+  <polyline points="920,10 990,10 990,80" fill="none" stroke="#D4A820" stroke-width="2"/>
+  <polyline points="925,20 980,20 980,75" fill="none" stroke="#C4941A" stroke-width="0.8" opacity="0.5"/>
+  <path d="M990,10 Q968,20 976,40 Q984,55 970,50 Q956,45 964,28" fill="none" stroke="#B8900A" stroke-width="1.2" opacity="0.65"/>
+  <circle cx="990" cy="10" r="5" fill="#D4A820" opacity="0.65"/>
+  <circle cx="990" cy="10" r="2.2" fill="#F5E4A8" opacity="0.9"/>
+  <polyline points="10,570 10,640 80,640" fill="none" stroke="#D4A820" stroke-width="2"/>
+  <polyline points="20,575 20,630 75,630" fill="none" stroke="#C4941A" stroke-width="0.8" opacity="0.5"/>
+  <path d="M10,640 Q32,620 24,600 Q16,585 30,590 Q44,595 36,612" fill="none" stroke="#B8900A" stroke-width="1.2" opacity="0.65"/>
+  <circle cx="10" cy="640" r="5" fill="#D4A820" opacity="0.65"/>
+  <circle cx="10" cy="640" r="2.2" fill="#F5E4A8" opacity="0.9"/>
+  <polyline points="920,640 990,640 990,570" fill="none" stroke="#D4A820" stroke-width="2"/>
+  <polyline points="925,630 980,630 980,575" fill="none" stroke="#C4941A" stroke-width="0.8" opacity="0.5"/>
+  <path d="M990,640 Q968,620 976,600 Q984,585 970,590 Q956,595 964,612" fill="none" stroke="#B8900A" stroke-width="1.2" opacity="0.65"/>
+  <circle cx="990" cy="640" r="5" fill="#D4A820" opacity="0.65"/>
+  <circle cx="990" cy="640" r="2.2" fill="#F5E4A8" opacity="0.9"/>
+  <polygon points="500,10 507,17 500,24 493,17" fill="#D4A820" opacity="0.55"/>
+  <polygon points="500,640 507,633 500,626 493,633" fill="#D4A820" opacity="0.55"/>
+  <polygon points="10,325 17,332 24,325 17,318" fill="#D4A820" opacity="0.45"/>
+  <polygon points="990,325 983,332 976,325 983,318" fill="#D4A820" opacity="0.45"/>
+</svg>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PAGE
+══════════════════════════════════════════════════ -->
+<div class="page-outer">
+
+    <!-- ══ CREST ══ -->
+    <div class="full-bleed royal-crest">
+      <svg width="120" height="110" viewBox="0 0 130 120" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="cg1" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#F5DFA0"/>
+            <stop offset="50%" stop-color="#D4A820"/>
+            <stop offset="100%" stop-color="#8C6B20"/>
+          </linearGradient>
+          <linearGradient id="cg2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#8C6B20"/>
+            <stop offset="50%" stop-color="#D4A820"/>
+            <stop offset="100%" stop-color="#8C6B20"/>
+          </linearGradient>
+        </defs>
+        <path d="M65,8 L100,18 L100,60 Q100,90 65,106 Q30,90 30,60 L30,18 Z" fill="url(#cg1)" opacity="0.13" stroke="#D4A820" stroke-width="1"/>
+        <path d="M65,13 L96,22 L96,59 Q96,87 65,102 Q34,87 34,59 L34,22 Z" fill="none" stroke="#D4A820" stroke-width="0.4" stroke-opacity="0.35"/>
+        <g transform="translate(65,52)">
+          <rect x="-22" y="13" width="44" height="9" rx="1" fill="url(#cg2)"/>
+          <rect x="-20" y="20" width="40" height="4" rx="1" fill="#D4A820" opacity="0.45"/>
+          <path d="M-22,13 L-22,-3 L-12,7 L0,-15 L12,7 L22,-3 L22,13 Z" fill="url(#cg1)"/>
+          <circle cx="0" cy="-4" r="4" fill="#6B1520"/>
+          <circle cx="0" cy="-4" r="2.2" fill="#D4A820" opacity="0.55"/>
+          <circle cx="-15" cy="7" r="2.5" fill="#6B1520"/>
+          <circle cx="15" cy="7" r="2.5" fill="#6B1520"/>
+          <circle cx="-17" cy="15" r="2.4" fill="#F5DFA0"/>
+          <circle cx="-8"  cy="15" r="2.4" fill="#F5DFA0"/>
+          <circle cx="0"   cy="15" r="2.4" fill="#F5DFA0"/>
+          <circle cx="8"   cy="15" r="2.4" fill="#F5DFA0"/>
+          <circle cx="17"  cy="15" r="2.4" fill="#F5DFA0"/>
+        </g>
+        <g transform="translate(65,80)" stroke="#D4A820" stroke-width="1.3" fill="none" opacity="0.65">
+          <g transform="rotate(-22)">
+            <line x1="0" y1="-13" x2="0" y2="13"/>
+            <line x1="-6" y1="-9" x2="6" y2="-9"/>
+            <path d="M-7,10 Q0,15 7,10"/>
+            <circle cx="0" cy="-13" r="2" fill="#D4A820" stroke="none"/>
+          </g>
+          <g transform="rotate(22)">
+            <line x1="0" y1="-13" x2="0" y2="13"/>
+            <line x1="-6" y1="-9" x2="6" y2="-9"/>
+            <path d="M-7,10 Q0,15 7,10"/>
+            <circle cx="0" cy="-13" r="2" fill="#D4A820" stroke="none"/>
+          </g>
+        </g>
+        <text x="20" y="64" font-size="11" fill="#D4A820" opacity="0.55" text-anchor="middle">✦</text>
+        <text x="110" y="64" font-size="11" fill="#D4A820" opacity="0.55" text-anchor="middle">✦</text>
+      </svg>
     </div>
 
-    <section>
-        <p>Sovereign Anchor Holding is not a fund. It is a experiment in compounding capital across a Multi-Century horizon.</p>
-        
-        <div class="philosophy-box">
-            "To see the truth, we first remove the money. We observe the world as a flow of energy and utility. We watch how value transfers from one place to another. Only when the service to society is clear do we plug the money back in to measure the result."
+    <!-- ══ BANNER + HEADER ══ -->
+    <div class="full-bleed proclamation-banner">
+        <div class="sub-head">Sovereign Anchor Holding</div>
+    </div>
+
+    <div class="full-bleed header-container">
+        <h1>A Study of Reality &amp; Value</h1>
+        <div class="est-line">Established January 1, 2026</div>
+        <svg class="svg-divider" viewBox="0 0 800 26" xmlns="http://www.w3.org/2000/svg" style="margin:32px 0 0;">
+          <defs>
+            <linearGradient id="hdg" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#8C6B20" stop-opacity="0"/>
+              <stop offset="15%"  stop-color="#D4A820" stop-opacity="0.9"/>
+              <stop offset="50%"  stop-color="#D4A820"/>
+              <stop offset="85%"  stop-color="#D4A820" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#8C6B20" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <line x1="0" y1="13" x2="800" y2="13" stroke="url(#hdg)" stroke-width="1.4"/>
+          <line x1="0" y1="15.5" x2="800" y2="15.5" stroke="url(#hdg)" stroke-width="0.5" opacity="0.3"/>
+          <path d="M70,13 Q95,5 120,13 Q145,21 170,13" fill="none" stroke="#D4A820" stroke-width="1" opacity="0.55"/>
+          <path d="M730,13 Q705,5 680,13 Q655,21 630,13" fill="none" stroke="#D4A820" stroke-width="1" opacity="0.55"/>
+          <polygon points="400,5 407,13 400,21 393,13" fill="#D4A820"/>
+          <polygon points="386,9 390,13 386,17 382,13" fill="#D4A820" opacity="0.55"/>
+          <polygon points="414,9 418,13 414,17 410,13" fill="#D4A820" opacity="0.55"/>
+          <polygon points="210,10 213,13 210,16 207,13" fill="#D4A820" opacity="0.35"/>
+          <polygon points="590,10 593,13 590,16 587,13" fill="#D4A820" opacity="0.35"/>
+        </svg>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════
+         IMAGE 1 — FULL BLEED OPENER
+         FILE: images/temeraire.png
+         Turner — The Fighting Temeraire, 1839
+    ══════════════════════════════════════════════════ -->
+    <div class="full-bleed image-block">
+        <img
+            src="images/temeraire.png"
+            alt="Turner — The Fighting Temeraire, 1839"
+            loading="lazy"
+            onerror="this.style.opacity='0.3'"
+        />
+        <div class="image-caption">
+            <b>J.M.W. Turner — The Fighting Temeraire, 1839.</b><br>
+            The great vessel that survived every storm, now guided onward by the tide of history.
+            We do not resist change — we anchor to what endures within it.
         </div>
+    </div>
 
-        <p>We believe business is, at its core, a <b>service to society that makes financial sense</b>. A business is nothing more than a group of people, led by one person, following a specific path based on historical patterns and the lessons of human error.</p>
-    </section>
+    <!-- ══ BODY SECTION 1 ══ -->
+    <div class="body-row">
+        <div class="margin-col">
+            <div class="margin-note">
+                <span class="margin-label">Founding Principle</span>
+                A business divorced from utility is merely speculation. Utility divorced from business is charity. We seek neither.
+            </div>
+            <div class="margin-ornament">⚜</div>
+        </div>
+        <div class="text-col">
+            <p class="drop-cap">Sovereign Anchor Holding is not a fund. It is an experiment in compounding capital across a Multi-Century horizon.</p>
 
-    <div class="darwin-note">
+            <div class="philosophy-box">
+                <div class="corner c-tl"><svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 L12,0 M0,0 L0,12" fill="none" stroke="#D4A820" stroke-width="1.6"/><circle cx="0" cy="0" r="2.5" fill="#D4A820" opacity="0.7"/></svg></div>
+                <div class="corner c-tr"><svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 L12,0 M0,0 L0,12" fill="none" stroke="#D4A820" stroke-width="1.6"/><circle cx="0" cy="0" r="2.5" fill="#D4A820" opacity="0.7"/></svg></div>
+                <div class="corner c-bl"><svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 L12,0 M0,0 L0,12" fill="none" stroke="#D4A820" stroke-width="1.6"/><circle cx="0" cy="0" r="2.5" fill="#D4A820" opacity="0.7"/></svg></div>
+                <div class="corner c-br"><svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 L12,0 M0,0 L0,12" fill="none" stroke="#D4A820" stroke-width="1.6"/><circle cx="0" cy="0" r="2.5" fill="#D4A820" opacity="0.7"/></svg></div>
+                <span class="drop-quote">&ldquo;</span>
+                To see the truth, we first remove the money. We observe the world as a flow of energy and utility. We watch how value transfers from one place to another. Only when the service to society is clear do we plug the money back in to measure the result.
+            </div>
+
+            <p>We believe business is, at its core, a <b>service to society that makes financial sense</b>. A business is nothing more than a group of people, led by one person, following a specific path based on historical patterns and the lessons of human error.</p>
+        </div>
+    </div>
+
+    <!-- ══ DARWIN NOTE ══ -->
+    <div class="full-bleed darwin-note">
+        <div class="drow">
+            <div class="dline"></div>
+            <div class="dsym">⚜ &nbsp; ✦ &nbsp; ⚜</div>
+            <div class="dline"></div>
+        </div>
         We look for a <b>Fantastic World</b> through a <b>Realistic Scope</b>.<br>
         Guided by Munger's mental models and Darwin's laws of adaptation.
+        <div class="drow bot">
+            <div class="dline"></div>
+            <div class="dsym">⚜ &nbsp; ✦ &nbsp; ⚜</div>
+            <div class="dline"></div>
+        </div>
     </div>
 
-    <h2>The Mechanism of Selection</h2>
-    <p>Our strategy is simple, adaptable, and ruthless in its logic.</p>
+    <!-- ══ CHAPTER OPENER I ══ -->
+    <div class="full-bleed chapter-opener">
+        <span class="chap-num">Chapter I</span>
+        <h2>The Mechanism of Selection</h2>
+        <div class="chap-sub">Our strategy is simple, adaptable, and ruthless in its logic.</div>
+        <div class="chap-watermark">I</div>
+    </div>
 
-    <h3>1. The Sovereign Bet (The Soil)</h3>
-    <p>We do not pick stocks in a vacuum. We first select the ecosystem. We go into a <b>growing country</b> where the population is striving for relevance. If the country rises, the tide lifts all boats.</p>
-    
-    <h3>2. The Enterprise (The Organism)</h3>
-    <p>Once the soil is chosen, we look for the strongest organism:</p>
-    <ul>
-        <li><b>Growing Company:</b> It must be expanding its utility.</li>
-        <li><b>The Leader:</b> A group of people is only as effective as the person they follow. We look for management that treats capital as a sacred trust.</li>
-        <li><b>Historical Precedence:</b> We avoid the unproven. We look for patterns that have worked for centuries.</li>
-    </ul>
+    <!-- ══════════════════════════════════════════════════
+         IMAGE PAIR
+         LEFT  — IMAGE 2: images/ptolemy-map.png
+                 Ptolemy World Map, 1482
+         RIGHT — IMAGE 3: images/rembrandt-scholar.png
+                 Rembrandt — Scholar in His Study, 1634
+    ══════════════════════════════════════════════════ -->
+    <div class="full-bleed image-pair">
+        <div>
+            <img
+                src="images/ptolemy-map.png"
+                alt="Ptolemy World Map, 1482 — The Sovereign Bet"
+                loading="lazy"
+                onerror="this.style.opacity='0.3'"
+            />
+            <div class="image-pair-caption">
+                <b>Ptolemy's World Map, 1482.</b><br>
+                We choose the ecosystem before the organism.
+                The sovereign bet begins with the soil.
+            </div>
+        </div>
+        <div>
+            <img
+                src="images/rembrandt-scholar.png"
+                alt="Rembrandt — Scholar in His Study, 1634"
+                loading="lazy"
+                onerror="this.style.opacity='0.3'"
+            />
+            <div class="image-pair-caption">
+                <b>Rembrandt — Scholar in His Study, 1634.</b><br>
+                Capital entrusted only to those who study before they act,
+                and treat every decision as a sacred trust.
+            </div>
+        </div>
+    </div>
 
-    <h2>The Anchor Archive</h2>
-    <p>This site serves as a permanent record of our thinking. It is written for the next generation of stakeholders.</p>
+    <!-- ══ BODY SECTION 2 ══ -->
+    <div class="body-row">
+        <div class="margin-col">
+            <div class="margin-note">
+                <span class="margin-label">On Soil</span>
+                A rising tide lifts all boats. Sovereign capital flows first to where civilisation is striving hardest.
+            </div>
+            <div class="margin-ornament">⚜</div>
+            <div class="margin-note" style="margin-top:40px;">
+                <span class="margin-label">On the Organism</span>
+                We do not merely seek growth. We seek the organism that survives when the climate turns.
+            </div>
+        </div>
+        <div class="text-col">
+            <h3><span class="numeral">I.</span> The Sovereign Bet — The Soil</h3>
+            <p>We do not pick stocks in a vacuum. We first select the ecosystem. We go into a <b>growing country</b> where the population is striving for relevance. If the country rises, the tide lifts all boats.</p>
 
-   <ul>
-   <li>
-        <a href="Research Framework.pdf" target="_blank">Research Framework</a>
-    </li>
-    <li>
-        <a href="2026_annual_data.pdf" target="_blank">2026 Annual Data</a>
-    </li>
+            <h3><span class="numeral">II.</span> The Enterprise — The Organism</h3>
+            <p>Once the soil is chosen, we look for the strongest organism:</p>
+            <ul>
+                <li><b>Growing Company:</b> It must be expanding its utility.</li>
+                <li><b>The Leader:</b> A group of people is only as effective as the person they follow. We look for management that treats capital as a sacred trust.</li>
+                <li><b>Historical Precedence:</b> We avoid the unproven. We look for patterns that have worked for centuries.</li>
+            </ul>
+        </div>
+    </div>
 
-    <li>
-        <a href="April,2026 Research Notes.pdf" target="_blank">April, 2026 Research Notes</a>
-    </li>
+    <!-- ══ CHAPTER OPENER II ══ -->
+    <div class="full-bleed chapter-opener">
+        <span class="chap-num">Chapter II</span>
+        <h2>The Anchor Archive</h2>
+        <div class="chap-sub">A permanent record of our thinking, written for the next generation of stakeholders.</div>
+        <div class="chap-watermark">II</div>
+    </div>
 
-    <li>
-        <a href="April,2026 Dialogue.pdf" target="_blank">April, 2026 Dialogue</a>
-    </li>
+    <!-- ══════════════════════════════════════════════════
+         IMAGE 4 — FULL BLEED ARCHIVE
+         FILE: images/wanderer.png
+         Caspar David Friedrich — Wanderer Above the Sea of Fog, 1818
+    ══════════════════════════════════════════════════ -->
+    <div class="full-bleed image-block">
+        <img
+            src="images/wanderer.png"
+            alt="Friedrich — Wanderer Above the Sea of Fog, 1818"
+            loading="lazy"
+            style="object-position: center top;"
+            onerror="this.style.opacity='0.3'"
+        />
+        <div class="image-caption">
+            <b>Caspar David Friedrich — Wanderer Above the Sea of Fog, 1818.</b><br>
+            Every great house of capital is founded upon this posture — above the noise, surveying the infinite,
+            thinking in centuries while the world thinks in quarters.
+        </div>
+    </div>
 
-    <li>
-        <a href="Library.pdf" target="_blank">The Library</a>
-    </li>
-</ul>
+    <!-- ══ ARCHIVE LIST ══ -->
+    <div class="body-row">
+        <div class="margin-col">
+            <div class="margin-note">
+                <span class="margin-label">The Record</span>
+                These documents are not reports. They are the living philosophy of the house — to be read by those who come after us.
+            </div>
+            <div class="margin-ornament">❧</div>
+        </div>
+        <div class="text-col">
+            <p>This site serves as a permanent record of our thinking. It is written for the next generation of stakeholders.</p>
+            <ul class="archive-list">
+                <li><a href="Research Framework.pdf" target="_blank">Research Framework</a></li>
+                <li><a href="2026_annual_data.pdf" target="_blank">2026 Annual Data</a></li>
+                <li><a href="April,2026 Research Notes.pdf" target="_blank">April, 2026 Research Notes</a></li>
+                <li><a href="April,2026 Dialogue.pdf" target="_blank">April, 2026 Dialogue</a></li>
+                <li><a href="Library.pdf" target="_blank">The Library</a></li>
+            </ul>
+        </div>
+    </div>
 
-  <div class="footer">
-    <p><i>"We bet on the continuation and advancement of human civilization itself."</i></p>
+    <!-- ══ FOOTER ══ -->
+    <div class="full-bleed footer">
+        <svg viewBox="0 0 800 30" width="100%" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="15" x2="800" y2="15" stroke="url(#hdg)" stroke-width="1.2"/>
+          <path d="M70,15 Q100,6 130,15 Q160,24 190,15" fill="none" stroke="#D4A820" stroke-width="1" opacity="0.45"/>
+          <path d="M730,15 Q700,6 670,15 Q640,24 610,15" fill="none" stroke="#D4A820" stroke-width="1" opacity="0.45"/>
+          <polygon points="400,7 407,15 400,23 393,15" fill="#D4A820" opacity="0.8"/>
+          <polygon points="385,11 389,15 385,19 381,15" fill="#D4A820" opacity="0.5"/>
+          <polygon points="415,11 419,15 415,19 411,15" fill="#D4A820" opacity="0.5"/>
+        </svg>
+
+        <svg width="46" height="42" viewBox="0 0 130 120" style="display:block;margin:18px auto 0;opacity:0.38;" xmlns="http://www.w3.org/2000/svg">
+          <path d="M65,8 L100,18 L100,60 Q100,90 65,106 Q30,90 30,60 L30,18 Z" fill="none" stroke="#D4A820" stroke-width="1.8"/>
+          <g transform="translate(65,52)">
+            <rect x="-18" y="13" width="36" height="7" rx="1" fill="#D4A820"/>
+            <path d="M-18,13 L-18,-1 L-9,7 L0,-13 L9,7 L18,-1 L18,13 Z" fill="#D4A820"/>
+            <circle cx="0" cy="-3" r="3" fill="#6B1520"/>
+          </g>
+        </svg>
+
+        <p>"We bet on the continuation and advancement of human civilization itself."</p>
+        <div class="footer-mark">Sovereign Anchor Holding &nbsp;·&nbsp; Est. MMXXVI</div>
+    </div>
+
 </div>
+
 <script>
 function accessResearch() {
     var password = prompt("Enter Access Code:");
-
     if (password === "anchor0000") {
         window.open("https://docs.google.com/spreadsheets/d/1-nNFN_-PSw2Os1NLsg9XMTNTxbvYTT4wsiaWbEUnCaM/edit?usp=sharing", "_blank");
     } else if (password !== null) {
@@ -130,9 +774,8 @@ function accessResearch() {
     }
 }
 </script>
-
 <div onclick="accessResearch()"
-     style="position: fixed; bottom: 10px; right: 10px; width: 25px; height: 25px; opacity: 0.01; cursor: pointer;">
-</div>
+     style="position:fixed;bottom:10px;right:10px;width:25px;height:25px;opacity:0.01;cursor:pointer;"></div>
+
 </body>
 </html>
