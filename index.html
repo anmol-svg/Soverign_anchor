@@ -8,10 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=IM+Fell+English:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
-
-/* ════════════════════════════════════════════════════
-   TOKENS
-════════════════════════════════════════════════════ */
 :root {
     --vellum:       #F0E6CC;
     --vellum-mid:   #E6D8B4;
@@ -31,13 +27,8 @@
     --gold-lightest:#F5E4A8;
     --margin-w:     220px;
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-
-/* ════════════════════════════════════════════════════
-   AGED VELLUM BODY
-════════════════════════════════════════════════════ */
 body {
     background-color: var(--vellum);
     background-image:
@@ -50,19 +41,11 @@ body {
     color: var(--ink);
     min-height: 100vh;
 }
-
-/* ════════════════════════════════════════════════════
-   FIXED ILLUMINATED BORDER
-════════════════════════════════════════════════════ */
 .manuscript-border {
     position: fixed; inset: 0;
     pointer-events: none; z-index: 999;
 }
 .manuscript-border svg { width: 100%; height: 100%; }
-
-/* ════════════════════════════════════════════════════
-   TWO-COLUMN LAYOUT
-════════════════════════════════════════════════════ */
 .page-outer {
     max-width: 1080px;
     margin: 0 auto;
@@ -70,91 +53,55 @@ body {
     animation: pageReveal 1.4s ease both;
 }
 @keyframes pageReveal { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
-
 .full-bleed { width: 100%; }
-
 .body-row {
     display: grid;
     grid-template-columns: var(--margin-w) 1fr;
     gap: 0 52px;
     align-items: start;
 }
-
-.margin-col {
-    padding-top: 6px;
-    position: sticky;
-    top: 80px;
-}
+.margin-col { padding-top: 6px; position: sticky; top: 80px; }
 .margin-note {
     font-family: "Cormorant Garamond", serif;
-    font-size: 13.5px;
-    font-style: italic;
-    color: var(--ink-faint);
-    line-height: 1.65;
+    font-size: 13.5px; font-style: italic;
+    color: var(--ink-faint); line-height: 1.65;
     border-left: 2px solid var(--gold-pale);
-    padding-left: 12px;
-    margin-bottom: 28px;
+    padding-left: 12px; margin-bottom: 28px;
 }
 .margin-label {
     font-family: "Cinzel", serif;
-    font-size: 8px;
-    letter-spacing: 3.5px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 6px;
-    display: block;
+    font-size: 8px; letter-spacing: 3.5px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 6px; display: block;
 }
-.margin-ornament {
-    text-align: right;
-    font-size: 18px;
-    color: var(--gold);
-    opacity: 0.5;
-    margin-top: 20px;
-}
-
+.margin-ornament { text-align: right; font-size: 18px; color: var(--gold); opacity: 0.5; margin-top: 20px; }
 .text-col { min-width: 0; }
-
-/* ════════════════════════════════════════════════════
-   TYPOGRAPHY
-════════════════════════════════════════════════════ */
 p { margin-bottom: 22px; text-align: justify; hyphens: auto; color: var(--ink-mid); }
 b, strong { color: var(--ink); font-weight: 600; }
-
 .drop-cap::first-letter {
     font-family: "Cinzel Decorative", serif;
-    font-size: 78px;
-    font-weight: 700;
-    float: left;
-    line-height: 0.72;
+    font-size: 78px; font-weight: 700;
+    float: left; line-height: 0.72;
     margin: 10px 10px 0 0;
     color: var(--crimson);
     text-shadow: 1px 1px 0 var(--gold-pale);
 }
-
 h2 {
     font-family: "Cinzel", serif;
-    font-size: 10px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    color: var(--crimson);
-    margin-bottom: 16px;
-    text-align: center;
-    padding: 12px 0;
-    position: relative;
+    font-size: 10px; letter-spacing: 5px;
+    text-transform: uppercase; color: var(--crimson);
+    margin-bottom: 16px; text-align: center;
+    padding: 12px 0; position: relative;
 }
-h2::before, h2::after {
-    content: ''; position: absolute; left: 0; right: 0; height: 1px;
-}
-h2::before { top: 0;    background: linear-gradient(to right, transparent, var(--gold-mid) 20%, var(--gold-mid) 80%, transparent); }
+h2::before, h2::after { content: ''; position: absolute; left: 0; right: 0; height: 1px; }
+h2::before { top: 0; background: linear-gradient(to right, transparent, var(--gold-mid) 20%, var(--gold-mid) 80%, transparent); }
 h2::after  { bottom: 0; background: linear-gradient(to right, transparent, var(--vellum-deep) 20%, var(--vellum-deep) 80%, transparent); }
-
 h3 {
     font-family: "Cormorant Garamond", serif;
     font-size: 23px; font-weight: 500; font-style: italic;
     color: var(--crimson-mid);
     margin-top: 40px; margin-bottom: 12px;
-    padding-left: 18px;
-    border-left: 3px solid var(--gold-pale);
+    padding-left: 18px; border-left: 3px solid var(--gold-pale);
 }
 h3 .numeral {
     font-family: "Cinzel", serif;
@@ -162,24 +109,16 @@ h3 .numeral {
     letter-spacing: 3px; color: var(--gold);
     display: block; margin-bottom: 3px;
 }
-
-/* ════════════════════════════════════════════════════
-   HEADER
-════════════════════════════════════════════════════ */
 .royal-crest { text-align: center; margin-bottom: 22px; padding-top: 10px; }
-
 .proclamation-banner {
     text-align: center;
     background: linear-gradient(180deg, var(--crimson) 0%, var(--crimson-mid) 50%, var(--crimson) 100%);
     border-top: 2px solid var(--gold-bright);
     border-bottom: 2px solid var(--gold-bright);
-    padding: 14px 40px;
-    position: relative;
+    padding: 14px 40px; position: relative;
 }
 .proclamation-banner::before {
-    content: '';
-    position: absolute;
-    inset: 4px 0;
+    content: ''; position: absolute; inset: 4px 0;
     border-top: 1px solid rgba(232,200,112,0.3);
     border-bottom: 1px solid rgba(232,200,112,0.3);
     pointer-events: none;
@@ -189,7 +128,6 @@ h3 .numeral {
     font-size: 10px; letter-spacing: 7px;
     text-transform: uppercase; color: var(--gold-lightest);
 }
-
 .header-container { text-align: center; padding: 36px 0 48px; }
 h1 {
     font-family: "Cinzel Decorative", serif;
@@ -201,16 +139,11 @@ h1 {
     font-size: 9px; letter-spacing: 5px;
     color: var(--gold); text-transform: uppercase; margin-top: 12px;
 }
-
-/* ════════════════════════════════════════════════════
-   PHILOSOPHY BOX
-════════════════════════════════════════════════════ */
 .philosophy-box {
     position: relative;
     background: linear-gradient(160deg, var(--vellum-mid) 0%, var(--vellum-deep) 100%);
     border: 1px solid var(--gold-mid);
-    padding: 46px 52px 42px 58px;
-    margin: 48px 0;
+    padding: 46px 52px 42px 58px; margin: 48px 0;
     font-family: "Cormorant Garamond", serif;
     font-size: 21px; font-style: italic; font-weight: 400;
     color: var(--ink); line-height: 1.8;
@@ -234,130 +167,83 @@ h1 {
     user-select: none; font-style: normal;
 }
 
-/* ════════════════════════════════════════════════════
-   IMAGE BLOCKS
-════════════════════════════════════════════════════ */
-.image-block {
-    margin: 60px 0;
-    position: relative;
-}
+/* ── IMAGES ── */
+.image-block { margin: 60px 0; position: relative; }
 .image-block img {
-    width: 100%;
-    height: 380px;
-    object-fit: cover;
-    object-position: center;
+    width: 100%; height: 380px;
+    object-fit: cover; object-position: center;
     display: block;
-    filter: sepia(40%) contrast(1.08) brightness(0.90);
+    filter: sepia(38%) contrast(1.08) brightness(0.91);
     border: 1px solid var(--gold-mid);
     box-shadow: 0 4px 30px rgba(0,0,0,0.22);
-    transition: filter 0.5s ease;
+    transition: filter 0.6s ease;
 }
-.image-block img:hover {
-    filter: sepia(20%) contrast(1.05) brightness(0.95);
-}
+.image-block img:hover { filter: sepia(10%) contrast(1.04) brightness(0.97); }
 .image-caption {
     font-family: "Cormorant Garamond", serif;
     font-size: 13.5px; font-style: italic;
-    color: var(--ink-faint);
-    text-align: center;
-    padding: 12px 30px 0;
-    letter-spacing: 0.3px;
-    line-height: 1.7;
+    color: var(--ink-faint); text-align: center;
+    padding: 12px 30px 0; letter-spacing: 0.3px; line-height: 1.75;
 }
-.image-caption b {
-    font-style: normal;
-    color: var(--ink-soft);
-    font-weight: 500;
-}
+.image-caption b { font-style: normal; color: var(--ink-soft); font-weight: 500; }
 
-/* Paired images */
-.image-pair {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-    margin: 52px 0;
-}
+.image-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 52px 0; }
 .image-pair img {
     width: 100%; height: 260px;
     object-fit: cover;
-    filter: sepia(40%) contrast(1.08) brightness(0.88);
+    filter: sepia(38%) contrast(1.08) brightness(0.88);
     border: 1px solid var(--gold-mid);
     box-shadow: 0 3px 18px rgba(0,0,0,0.16);
     display: block;
-    transition: filter 0.5s ease;
+    transition: filter 0.6s ease;
 }
-.image-pair img:hover {
-    filter: sepia(15%) contrast(1.05) brightness(0.95);
-}
+.image-pair img:hover { filter: sepia(10%) contrast(1.04) brightness(0.96); }
 .image-pair-caption {
     font-family: "Cormorant Garamond", serif;
     font-size: 13px; font-style: italic;
-    color: var(--ink-faint);
-    text-align: center;
-    padding-top: 8px;
-    line-height: 1.65;
+    color: var(--ink-faint); text-align: center;
+    padding-top: 8px; line-height: 1.65;
 }
-.image-pair-caption b {
-    font-style: normal;
-    color: var(--ink-soft);
-    font-weight: 500;
-}
+.image-pair-caption b { font-style: normal; color: var(--ink-soft); font-weight: 500; }
 
-/* ════════════════════════════════════════════════════
-   DARWIN NOTE
-════════════════════════════════════════════════════ */
 .darwin-note {
-    text-align: center;
-    padding: 28px 0;
-    margin: 52px 0;
+    text-align: center; padding: 28px 0; margin: 52px 0;
     font-family: "Cormorant Garamond", serif;
     font-size: 18.5px; font-style: italic;
     color: var(--ink-soft); line-height: 2;
 }
-.drow {
-    display: flex; align-items: center; gap: 14px; margin-bottom: 18px;
-}
+.drow { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
 .drow.bot { margin-top: 18px; margin-bottom: 0; }
 .drow .dline { flex:1; height:1px; background: linear-gradient(to right, transparent, var(--gold-mid) 40%, var(--gold-mid) 60%, transparent); }
 .drow .dsym { font-family:"Cinzel",serif; font-size:9px; letter-spacing:5px; color:var(--gold); }
 .darwin-note b { color: var(--crimson); font-weight:500; font-style:normal; }
 
-/* ════════════════════════════════════════════════════
-   CHAPTER OPENER
-════════════════════════════════════════════════════ */
 .chapter-opener {
-    margin: 80px 0 56px;
-    padding: 50px 60px;
+    margin: 80px 0 56px; padding: 50px 60px;
     background: linear-gradient(135deg, var(--crimson) 0%, #4A0E16 100%);
     border: 1px solid var(--gold-mid);
-    position: relative;
-    overflow: hidden;
+    position: relative; overflow: hidden;
 }
 .chapter-opener::before {
-    content: '';
-    position: absolute; inset: 6px;
-    border: 1px solid rgba(232,200,112,0.2);
-    pointer-events: none;
+    content: ''; position: absolute; inset: 6px;
+    border: 1px solid rgba(232,200,112,0.2); pointer-events: none;
 }
 .chapter-opener .chap-num {
-    font-family: "Cinzel", serif;
-    font-size: 9px; letter-spacing: 6px;
+    font-family: "Cinzel", serif; font-size: 9px; letter-spacing: 6px;
     color: var(--gold-pale); opacity: 0.7;
     text-transform: uppercase; display: block; margin-bottom: 14px;
 }
 .chapter-opener h2 {
     font-family: "Cinzel Decorative", serif;
     font-size: 24px; font-weight: 400;
-    color: var(--gold-lightest);
-    letter-spacing: 0.5px; text-align: left;
-    padding: 0; margin: 0;
+    color: var(--gold-lightest); letter-spacing: 0.5px;
+    text-align: left; padding: 0; margin: 0;
 }
 .chapter-opener h2::before, .chapter-opener h2::after { display: none; }
 .chapter-opener .chap-sub {
     font-family: "Cormorant Garamond", serif;
     font-size: 16px; font-style: italic;
-    color: var(--gold-pale); opacity: 0.75;
-    margin-top: 10px;
+    color: var(--gold-pale); opacity: 0.75; margin-top: 10px;
 }
 .chapter-opener .chap-watermark {
     position: absolute; right: 40px; top: 50%;
@@ -367,18 +253,12 @@ h1 {
     color: rgba(232,200,112,0.06);
     user-select: none; line-height: 1;
 }
-
-/* ════════════════════════════════════════════════════
-   LISTS
-════════════════════════════════════════════════════ */
 ul { list-style: none; padding-left: 0; margin: 22px 0; }
 li { position: relative; padding-left: 30px; margin-bottom: 16px; color: var(--ink-mid); }
 li::before { content:'⚜'; position:absolute; left:0; top:1px; font-size:12px; color:var(--gold); }
-
 .archive-list li {
     padding: 14px 0 14px 30px;
-    border-bottom: 1px solid var(--vellum-deep);
-    transition: all .25s;
+    border-bottom: 1px solid var(--vellum-deep); transition: all .25s;
 }
 .archive-list li:first-child { border-top: 1px solid var(--vellum-deep); }
 .archive-list li:hover { padding-left: 40px; background: linear-gradient(to right, rgba(107,21,32,0.04), transparent); }
@@ -390,51 +270,31 @@ a {
     transition: color .2s, border-color .2s;
 }
 a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
-
-/* ════════════════════════════════════════════════════
-   FOOTER
-════════════════════════════════════════════════════ */
 .footer { margin-top: 100px; text-align: center; }
 .footer p {
     font-family: "Cormorant Garamond", serif;
     font-size: 19px; font-style: italic;
     color: var(--ink-soft); margin: 26px 0 18px;
 }
-.footer-mark {
-    font-family: "Cinzel", serif;
-    font-size: 9px; letter-spacing: 5px; color: var(--gold);
-}
-
+.footer-mark { font-family: "Cinzel", serif; font-size: 9px; letter-spacing: 5px; color: var(--gold); }
 .svg-divider { width: 100%; margin: 44px 0; display: block; }
-
-/* ════════════════════════════════════════════════════
-   RESPONSIVE
-════════════════════════════════════════════════════ */
 @media (max-width: 760px) {
     .body-row { grid-template-columns: 1fr; }
     .margin-col { display: none; }
     .image-pair { grid-template-columns: 1fr; }
     .page-outer { padding: 50px 24px 80px; }
     :root { --margin-w: 0px; }
-    .image-block img { height: 240px; }
+    .image-block img { height: 220px; }
     .image-pair img { height: 200px; }
 }
     </style>
 </head>
 <body>
 
-<!-- ══ ILLUMINATED BORDER ══ -->
 <div class="manuscript-border">
 <svg viewBox="0 0 1000 650" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="gH" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%"   stop-color="#8C6B20" stop-opacity="0"/>
-      <stop offset="18%"  stop-color="#D4A820" stop-opacity="0.85"/>
-      <stop offset="50%"  stop-color="#D4A820"/>
-      <stop offset="82%"  stop-color="#D4A820" stop-opacity="0.85"/>
-      <stop offset="100%" stop-color="#8C6B20" stop-opacity="0"/>
-    </linearGradient>
-    <linearGradient id="gV" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%"   stop-color="#8C6B20" stop-opacity="0"/>
       <stop offset="18%"  stop-color="#D4A820" stop-opacity="0.85"/>
       <stop offset="50%"  stop-color="#D4A820"/>
@@ -472,13 +332,9 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
 </svg>
 </div>
 
-
-<!-- ══════════════════════════════════════════════════
-     PAGE
-══════════════════════════════════════════════════ -->
 <div class="page-outer">
 
-    <!-- ══ CREST ══ -->
+    <!-- CREST -->
     <div class="full-bleed royal-crest">
       <svg width="120" height="110" viewBox="0 0 130 120" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -528,7 +384,7 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
       </svg>
     </div>
 
-    <!-- ══ BANNER + HEADER ══ -->
+    <!-- BANNER -->
     <div class="full-bleed proclamation-banner">
         <div class="sub-head">Sovereign Anchor Holding</div>
     </div>
@@ -558,26 +414,21 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
         </svg>
     </div>
 
-    <!-- ══════════════════════════════════════════════════
-         IMAGE 1 — FULL BLEED OPENER
-         FILE: images/temeraire.png
-         Turner — The Fighting Temeraire, 1839
-    ══════════════════════════════════════════════════ -->
+    <!-- IMAGE 1: Turner — The Fighting Temeraire (full-bleed opener) -->
     <div class="full-bleed image-block">
         <img
-            src="images/temeraire.png"
+            src="https://github.com/user-attachments/assets/70e4a1d6-1a60-4c1a-980f-3f35871e0aea"
             alt="Turner — The Fighting Temeraire, 1839"
             loading="lazy"
-            onerror="this.style.opacity='0.3'"
         />
         <div class="image-caption">
             <b>J.M.W. Turner — The Fighting Temeraire, 1839.</b><br>
-            The great vessel that survived every storm, now guided onward by the tide of history.
+            The great vessel that survived every storm, now yielding to the tide of history.
             We do not resist change — we anchor to what endures within it.
         </div>
     </div>
 
-    <!-- ══ BODY SECTION 1 ══ -->
+    <!-- BODY SECTION 1 -->
     <div class="body-row">
         <div class="margin-col">
             <div class="margin-note">
@@ -588,7 +439,6 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
         </div>
         <div class="text-col">
             <p class="drop-cap">Sovereign Anchor Holding is not a fund. It is an experiment in compounding capital across a Multi-Century horizon.</p>
-
             <div class="philosophy-box">
                 <div class="corner c-tl"><svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 L12,0 M0,0 L0,12" fill="none" stroke="#D4A820" stroke-width="1.6"/><circle cx="0" cy="0" r="2.5" fill="#D4A820" opacity="0.7"/></svg></div>
                 <div class="corner c-tr"><svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 L12,0 M0,0 L0,12" fill="none" stroke="#D4A820" stroke-width="1.6"/><circle cx="0" cy="0" r="2.5" fill="#D4A820" opacity="0.7"/></svg></div>
@@ -597,12 +447,11 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
                 <span class="drop-quote">&ldquo;</span>
                 To see the truth, we first remove the money. We observe the world as a flow of energy and utility. We watch how value transfers from one place to another. Only when the service to society is clear do we plug the money back in to measure the result.
             </div>
-
             <p>We believe business is, at its core, a <b>service to society that makes financial sense</b>. A business is nothing more than a group of people, led by one person, following a specific path based on historical patterns and the lessons of human error.</p>
         </div>
     </div>
 
-    <!-- ══ DARWIN NOTE ══ -->
+    <!-- DARWIN NOTE -->
     <div class="full-bleed darwin-note">
         <div class="drow">
             <div class="dline"></div>
@@ -618,7 +467,7 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
         </div>
     </div>
 
-    <!-- ══ CHAPTER OPENER I ══ -->
+    <!-- CHAPTER I -->
     <div class="full-bleed chapter-opener">
         <span class="chap-num">Chapter I</span>
         <h2>The Mechanism of Selection</h2>
@@ -626,20 +475,13 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
         <div class="chap-watermark">I</div>
     </div>
 
-    <!-- ══════════════════════════════════════════════════
-         IMAGE PAIR
-         LEFT  — IMAGE 2: images/ptolemy-map.png
-                 Ptolemy World Map, 1482
-         RIGHT — IMAGE 3: images/rembrandt-scholar.png
-                 Rembrandt — Scholar in His Study, 1634
-    ══════════════════════════════════════════════════ -->
+    <!-- IMAGE PAIR: Ptolemy (left) + School of Athens (right) -->
     <div class="full-bleed image-pair">
         <div>
             <img
-                src="images/ptolemy-map.png"
-                alt="Ptolemy World Map, 1482 — The Sovereign Bet"
+                src="https://github.com/user-attachments/assets/bdf8d6fa-5300-4e56-a582-0dd5c81271ba"
+                alt="Ptolemy World Map, 1482"
                 loading="lazy"
-                onerror="this.style.opacity='0.3'"
             />
             <div class="image-pair-caption">
                 <b>Ptolemy's World Map, 1482.</b><br>
@@ -649,20 +491,19 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
         </div>
         <div>
             <img
-                src="images/rembrandt-scholar.png"
-                alt="Rembrandt — Scholar in His Study, 1634"
+                src="https://github.com/user-attachments/assets/cd1f2732-8ca4-4777-a966-679eeff81981"
+                alt="Raphael — School of Athens, 1511"
                 loading="lazy"
-                onerror="this.style.opacity='0.3'"
             />
             <div class="image-pair-caption">
-                <b>Rembrandt — Scholar in His Study, 1634.</b><br>
-                Capital entrusted only to those who study before they act,
-                and treat every decision as a sacred trust.
+                <b>Raphael — School of Athens, 1511.</b><br>
+                A group of people is only as effective as the mind that leads them.
+                We invest in those who think at this level.
             </div>
         </div>
     </div>
 
-    <!-- ══ BODY SECTION 2 ══ -->
+    <!-- BODY SECTION 2 -->
     <div class="body-row">
         <div class="margin-col">
             <div class="margin-note">
@@ -678,7 +519,6 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
         <div class="text-col">
             <h3><span class="numeral">I.</span> The Sovereign Bet — The Soil</h3>
             <p>We do not pick stocks in a vacuum. We first select the ecosystem. We go into a <b>growing country</b> where the population is striving for relevance. If the country rises, the tide lifts all boats.</p>
-
             <h3><span class="numeral">II.</span> The Enterprise — The Organism</h3>
             <p>Once the soil is chosen, we look for the strongest organism:</p>
             <ul>
@@ -689,7 +529,7 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
         </div>
     </div>
 
-    <!-- ══ CHAPTER OPENER II ══ -->
+    <!-- CHAPTER II -->
     <div class="full-bleed chapter-opener">
         <span class="chap-num">Chapter II</span>
         <h2>The Anchor Archive</h2>
@@ -697,27 +537,36 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
         <div class="chap-watermark">II</div>
     </div>
 
-    <!-- ══════════════════════════════════════════════════
-         IMAGE 4 — FULL BLEED ARCHIVE
-         FILE: images/wanderer.png
-         Caspar David Friedrich — Wanderer Above the Sea of Fog, 1818
-    ══════════════════════════════════════════════════ -->
+    <!-- IMAGE 4: Friedrich Wanderer (Chapter II full-bleed) -->
     <div class="full-bleed image-block">
         <img
-            src="images/wanderer.png"
+            src="https://github.com/user-attachments/assets/98ad4d79-572f-40ed-9bf0-9f756ebb0b30"
             alt="Friedrich — Wanderer Above the Sea of Fog, 1818"
             loading="lazy"
-            style="object-position: center top;"
-            onerror="this.style.opacity='0.3'"
+            style="object-position: center 20%;"
         />
         <div class="image-caption">
             <b>Caspar David Friedrich — Wanderer Above the Sea of Fog, 1818.</b><br>
-            Every great house of capital is founded upon this posture — above the noise, surveying the infinite,
-            thinking in centuries while the world thinks in quarters.
+            Above the noise. Above the quarter. Thinking in centuries while the world thinks in days.
+            This is the posture of the sovereign investor.
         </div>
     </div>
 
-    <!-- ══ ARCHIVE LIST ══ -->
+    <!-- IMAGE 5: Tower of Babel (before archive list) -->
+    <div class="full-bleed image-block" style="margin-top:0;">
+        <img
+            src="https://github.com/user-attachments/assets/aaac040b-4c1b-4b94-a035-35bd740cd896"
+            alt="Bruegel — Tower of Babel, 1563"
+            loading="lazy"
+        />
+        <div class="image-caption">
+            <b>Pieter Bruegel — The Tower of Babel, 1563.</b><br>
+            Civilisation has always built upward — generation after generation, stone upon stone.
+            We bet on the continuation of this impulse itself.
+        </div>
+    </div>
+
+    <!-- ARCHIVE LIST -->
     <div class="body-row">
         <div class="margin-col">
             <div class="margin-note">
@@ -738,7 +587,7 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
         </div>
     </div>
 
-    <!-- ══ FOOTER ══ -->
+    <!-- FOOTER -->
     <div class="full-bleed footer">
         <svg viewBox="0 0 800 30" width="100%" xmlns="http://www.w3.org/2000/svg">
           <line x1="0" y1="15" x2="800" y2="15" stroke="url(#hdg)" stroke-width="1.2"/>
@@ -748,7 +597,6 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
           <polygon points="385,11 389,15 385,19 381,15" fill="#D4A820" opacity="0.5"/>
           <polygon points="415,11 419,15 415,19 411,15" fill="#D4A820" opacity="0.5"/>
         </svg>
-
         <svg width="46" height="42" viewBox="0 0 130 120" style="display:block;margin:18px auto 0;opacity:0.38;" xmlns="http://www.w3.org/2000/svg">
           <path d="M65,8 L100,18 L100,60 Q100,90 65,106 Q30,90 30,60 L30,18 Z" fill="none" stroke="#D4A820" stroke-width="1.8"/>
           <g transform="translate(65,52)">
@@ -757,7 +605,6 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
             <circle cx="0" cy="-3" r="3" fill="#6B1520"/>
           </g>
         </svg>
-
         <p>"We bet on the continuation and advancement of human civilization itself."</p>
         <div class="footer-mark">Sovereign Anchor Holding &nbsp;·&nbsp; Est. MMXXVI</div>
     </div>
@@ -774,8 +621,7 @@ function accessResearch() {
     }
 }
 </script>
-<div onclick="accessResearch()"
-     style="position:fixed;bottom:10px;right:10px;width:25px;height:25px;opacity:0.01;cursor:pointer;"></div>
+<div onclick="accessResearch()" style="position:fixed;bottom:10px;right:10px;width:25px;height:25px;opacity:0.01;cursor:pointer;"></div>
 
 </body>
 </html>
