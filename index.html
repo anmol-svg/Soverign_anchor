@@ -206,20 +206,35 @@ h1 {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
-.image-block img {
+.image-block .img-container {
     width: 100%;
-    aspect-ratio: 16 / 9; /* Maintains consistent ratio across devices */
-    object-fit: cover; 
+    min-height: 300px;
+    max-height: 500px;
+    background: linear-gradient(135deg, var(--vellum-mid) 0%, var(--vellum-deep) 100%);
+    border: 1px solid var(--gold-mid);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+.image-block .img-container:hover {
+    transform: scale(1.01);
+}
+.image-block img {
+    max-width: 100%;
+    max-height: 500px;
+    width: auto;
+    height: auto;
+    object-fit: contain; /* Shows complete image */
     object-position: center;
     display: block;
     filter: sepia(38%) contrast(1.08) brightness(0.91);
-    border: 1px solid var(--gold-mid);
-    box-shadow: 0 4px 30px rgba(0,0,0,0.22);
-    transition: filter 0.6s ease, transform 0.3s ease;
+    transition: filter 0.6s ease;
 }
 .image-block img:hover { 
     filter: sepia(10%) contrast(1.04) brightness(0.97);
-    transform: scale(1.01);
 }
 .image-caption {
     font-family: "Cormorant Garamond", serif;
@@ -236,19 +251,35 @@ h1 {
     margin: 52px 0;
     animation: imageSlideIn 0.8s ease-out both;
 }
-.image-pair img {
-    width: 100%; 
-    aspect-ratio: 4 / 3; /* Maintains consistent ratio */
-    object-fit: cover;
-    filter: sepia(38%) contrast(1.08) brightness(0.88);
+.image-pair .pair-container {
+    width: 100%;
+    min-height: 250px;
+    max-height: 400px;
+    background: linear-gradient(135deg, var(--vellum-mid) 0%, var(--vellum-deep) 100%);
     border: 1px solid var(--gold-mid);
     box-shadow: 0 3px 18px rgba(0,0,0,0.16);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+.image-pair .pair-container:hover {
+    transform: scale(1.02);
+}
+.image-pair img {
+    max-width: 100%;
+    max-height: 400px;
+    width: auto;
+    height: auto;
+    object-fit: contain; /* Shows complete image */
+    object-position: center;
+    filter: sepia(38%) contrast(1.08) brightness(0.88);
     display: block;
-    transition: filter 0.6s ease, transform 0.3s ease;
+    transition: filter 0.6s ease;
 }
 .image-pair img:hover { 
     filter: sepia(10%) contrast(1.04) brightness(0.96);
-    transform: scale(1.02);
 }
 .image-pair-caption {
     font-family: "Cormorant Garamond", serif;
@@ -346,6 +377,16 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
     h1 { font-size: 24px; }
     .chapter-opener { padding: 40px 40px; }
     .chapter-opener .chap-watermark { font-size: 90px; }
+    .image-block .img-container { 
+        min-height: 280px;
+        max-height: 450px;
+    }
+    .image-block img { max-height: 450px; }
+    .image-pair .pair-container { 
+        min-height: 220px;
+        max-height: 350px;
+    }
+    .image-pair img { max-height: 350px; }
 }
 
 @media (max-width: 760px) {
@@ -354,9 +395,6 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
     .image-pair { 
         grid-template-columns: 1fr; 
         gap: 30px;
-    }
-    .image-pair img {
-        aspect-ratio: 16 / 11; /* Better ratio for mobile */
     }
     .page-outer { padding: 50px 24px 80px; }
     :root { --margin-w: 0px; }
@@ -376,6 +414,16 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
         right: 20px;
     }
     .darwin-note { font-size: 16px; padding: 20px 0; }
+    .image-block .img-container { 
+        min-height: 250px;
+        max-height: 400px;
+    }
+    .image-block img { max-height: 400px; }
+    .image-pair .pair-container { 
+        min-height: 200px;
+        max-height: 320px;
+    }
+    .image-pair img { max-height: 320px; }
 }
 
 @media (max-width: 480px) {
@@ -395,6 +443,43 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
     .chapter-opener .chap-watermark { display: none; }
     .image-block { margin: 40px 0; }
     .image-pair { margin: 40px 0; gap: 24px; }
+    .image-block .img-container { 
+        min-height: 200px;
+        max-height: 350px;
+    }
+    .image-block img { max-height: 350px; }
+    .image-pair .pair-container { 
+        min-height: 180px;
+        max-height: 280px;
+    }
+    .image-pair img { max-height: 280px; }
+}
+
+/* ──── ORIENTATION SUPPORT ──── */
+@media (orientation: landscape) and (max-width: 900px) {
+    .image-block .img-container { 
+        min-height: 200px;
+        max-height: 350px;
+    }
+    .image-block img { max-height: 350px; }
+    .image-pair .pair-container { 
+        min-height: 180px;
+        max-height: 280px;
+    }
+    .image-pair img { max-height: 280px; }
+}
+
+@media (orientation: portrait) and (max-width: 600px) {
+    .image-block .img-container { 
+        min-height: 250px;
+        max-height: 450px;
+    }
+    .image-block img { max-height: 450px; }
+    .image-pair .pair-container { 
+        min-height: 220px;
+        max-height: 380px;
+    }
+    .image-pair img { max-height: 380px; }
 }
     </style>
 </head>
@@ -715,7 +800,7 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
           </g>
         </svg>
         <p>"We bet on the continuation and advancement of human civilization itself."</p>
-        <div class="footer-mark">Sovereign Anchor Holding &nbsp;·&nbsp; Est. MMXXVI</div>
+        <div class="footer-mark">Sovereign Anchor Holding &nbsp;·&nbsp; </div>
     </div>
 
 </div>
