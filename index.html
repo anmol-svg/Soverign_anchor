@@ -49,26 +49,13 @@ body {
     animation: borderFloat 8s ease-in-out infinite;
 }
 @keyframes borderFloat {
-    0%, 100% { 
-        transform: translate(0, 0) scale(1);
-        opacity: 1;
-    }
-    25% { 
-        transform: translate(2px, -2px) scale(1.002);
-        opacity: 0.95;
-    }
-    50% { 
-        transform: translate(-1px, 2px) scale(0.999);
-        opacity: 0.98;
-    }
-    75% { 
-        transform: translate(-2px, -1px) scale(1.001);
-        opacity: 0.96;
-    }
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 1; }
+    25% { transform: translate(2px, -2px) scale(1.002); opacity: 0.95; }
+    50% { transform: translate(-1px, 2px) scale(0.999); opacity: 0.98; }
+    75% { transform: translate(-2px, -1px) scale(1.001); opacity: 0.96; }
 }
 .manuscript-border svg { 
-    width: 100%; 
-    height: 100%;
+    width: 100%; height: 100%;
     filter: drop-shadow(0 0 3px rgba(212, 168, 32, 0.15));
 }
 
@@ -196,99 +183,114 @@ h1 {
     user-select: none; font-style: normal;
 }
 
-/* ──── RESPONSIVE IMAGES ──── */
-.image-block { 
-    margin: 60px 0; 
-    position: relative;
+/* ══════════════════════════════════════════
+   IMAGE BLOCK — single full-width images
+   Always centered, never cropped
+══════════════════════════════════════════ */
+.image-block {
+    margin: 60px 0;
     animation: imageSlideIn 0.8s ease-out both;
+    display: flex;
+    flex-direction: column;
+    align-items: center;          /* centre on every device */
 }
 @keyframes imageSlideIn {
     from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-.image-block .img-container {
-    width: 100%;
-    min-height: 300px;
-    max-height: 500px;
-    background: linear-gradient(135deg, var(--vellum-mid) 0%, var(--vellum-deep) 100%);
-    border: 1px solid var(--gold-mid);
-    box-shadow: 0 4px 30px rgba(0,0,0,0.22);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-}
-.image-block .img-container:hover {
-    transform: scale(1.01);
+    to   { opacity: 1; transform: translateY(0); }
 }
 .image-block img {
-    max-width: 100%;
-    max-height: 500px;
+    display: block;
+    max-width: 100%;              /* never overflow */
     width: auto;
     height: auto;
-    object-fit: contain; /* Shows complete image */
-    object-position: center;
-    display: block;
+    max-height: 520px;
+    object-fit: contain;          /* whole painting always visible */
+    border: 1px solid var(--gold-mid);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.22);
     filter: sepia(38%) contrast(1.08) brightness(0.91);
-    transition: filter 0.6s ease;
+    transition: filter 0.6s ease, transform 0.3s ease;
 }
-.image-block img:hover { 
+.image-block img:hover {
     filter: sepia(10%) contrast(1.04) brightness(0.97);
+    transform: scale(1.01);
 }
 .image-caption {
     font-family: "Cormorant Garamond", serif;
     font-size: 13.5px; font-style: italic;
     color: var(--ink-faint); text-align: center;
     padding: 12px 30px 0; letter-spacing: 0.3px; line-height: 1.75;
+    max-width: 680px;
 }
 .image-caption b { font-style: normal; color: var(--ink-soft); font-weight: 500; }
 
-.image-pair { 
-    display: grid; 
-    grid-template-columns: 1fr 1fr; 
-    gap: 18px; 
+/* ══════════════════════════════════════════
+   IMAGE STACK — Ptolemy + Raphael
+   Stacked vertically, perfectly symmetrical,
+   centred on every screen size
+══════════════════════════════════════════ */
+.image-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
     margin: 52px 0;
     animation: imageSlideIn 0.8s ease-out both;
 }
-.image-pair .pair-container {
-    width: 100%;
-    min-height: 250px;
-    max-height: 400px;
-    background: linear-gradient(135deg, var(--vellum-mid) 0%, var(--vellum-deep) 100%);
-    border: 1px solid var(--gold-mid);
-    box-shadow: 0 3px 18px rgba(0,0,0,0.16);
+
+/* thin golden rule between the two paintings */
+.image-stack .stack-divider {
+    width: 60%;
+    max-width: 420px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-mid) 30%, var(--gold-mid) 70%, transparent);
+    margin: 28px 0;
+    position: relative;
+}
+.image-stack .stack-divider::after {
+    content: '✦';
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--vellum);
+    padding: 0 10px;
+    font-size: 10px;
+    color: var(--gold);
+    font-family: "Cinzel", serif;
+}
+
+.image-stack .stack-item {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    transition: transform 0.3s ease;
+    width: 100%;
+    max-width: 720px;             /* both paintings same max-width = symmetry */
 }
-.image-pair .pair-container:hover {
-    transform: scale(1.02);
-}
-.image-pair img {
+.image-stack .stack-item img {
+    display: block;
     max-width: 100%;
-    max-height: 400px;
     width: auto;
     height: auto;
-    object-fit: contain; /* Shows complete image */
-    object-position: center;
+    max-height: 460px;
+    object-fit: contain;
+    border: 1px solid var(--gold-mid);
+    box-shadow: 0 3px 22px rgba(0,0,0,0.18);
     filter: sepia(38%) contrast(1.08) brightness(0.88);
-    display: block;
-    transition: filter 0.6s ease;
+    transition: filter 0.6s ease, transform 0.3s ease;
 }
-.image-pair img:hover { 
+.image-stack .stack-item img:hover {
     filter: sepia(10%) contrast(1.04) brightness(0.96);
+    transform: scale(1.015);
 }
-.image-pair-caption {
+.stack-caption {
     font-family: "Cormorant Garamond", serif;
-    font-size: 13px; font-style: italic;
+    font-size: 13.5px; font-style: italic;
     color: var(--ink-faint); text-align: center;
-    padding-top: 8px; line-height: 1.65;
+    padding: 12px 24px 0; line-height: 1.75;
+    max-width: 560px;
 }
-.image-pair-caption b { font-style: normal; color: var(--ink-soft); font-weight: 500; }
+.stack-caption b { font-style: normal; color: var(--ink-soft); font-weight: 500; }
 
+/* ──── DARWIN NOTE ──── */
 .darwin-note {
     text-align: center; padding: 28px 0; margin: 52px 0;
     font-family: "Cormorant Garamond", serif;
@@ -310,7 +312,7 @@ h1 {
 }
 @keyframes chapterReveal {
     from { opacity: 0; transform: translateX(-20px); }
-    to { opacity: 1; transform: translateX(0); }
+    to   { opacity: 1; transform: translateX(0); }
 }
 .chapter-opener::before {
     content: ''; position: absolute; inset: 6px;
@@ -371,115 +373,47 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
 .footer-mark { font-family: "Cinzel", serif; font-size: 9px; letter-spacing: 5px; color: var(--gold); }
 .svg-divider { width: 100%; margin: 44px 0; display: block; }
 
-/* ──── RESPONSIVE BREAKPOINTS ──── */
+/* ──── RESPONSIVE ──── */
 @media (max-width: 1024px) {
     .page-outer { padding: 60px 40px 100px; }
     h1 { font-size: 24px; }
     .chapter-opener { padding: 40px 40px; }
     .chapter-opener .chap-watermark { font-size: 90px; }
-    .image-block .img-container { 
-        min-height: 280px;
-        max-height: 450px;
-    }
-    .image-block img { max-height: 450px; }
-    .image-pair .pair-container { 
-        min-height: 220px;
-        max-height: 350px;
-    }
-    .image-pair img { max-height: 350px; }
+    .image-block img { max-height: 460px; }
+    .image-stack .stack-item img { max-height: 400px; }
 }
-
 @media (max-width: 760px) {
     .body-row { grid-template-columns: 1fr; gap: 0; }
     .margin-col { display: none; }
-    .image-pair { 
-        grid-template-columns: 1fr; 
-        gap: 30px;
-    }
     .page-outer { padding: 50px 24px 80px; }
     :root { --margin-w: 0px; }
     h1 { font-size: 22px; }
-    .philosophy-box { 
-        padding: 32px 28px; 
-        font-size: 18px;
-    }
+    .philosophy-box { padding: 32px 28px; font-size: 18px; }
     .drop-quote { font-size: 60px; }
-    .chapter-opener { 
-        padding: 30px 24px; 
-        margin: 50px 0 40px;
-    }
+    .chapter-opener { padding: 30px 24px; margin: 50px 0 40px; }
     .chapter-opener h2 { font-size: 20px; }
-    .chapter-opener .chap-watermark { 
-        font-size: 70px;
-        right: 20px;
-    }
+    .chapter-opener .chap-watermark { font-size: 70px; right: 20px; }
     .darwin-note { font-size: 16px; padding: 20px 0; }
-    .image-block .img-container { 
-        min-height: 250px;
-        max-height: 400px;
-    }
-    .image-block img { max-height: 400px; }
-    .image-pair .pair-container { 
-        min-height: 200px;
-        max-height: 320px;
-    }
-    .image-pair img { max-height: 320px; }
+    .image-block img { max-height: 380px; }
+    .image-stack .stack-item img { max-height: 340px; }
+    .image-stack .stack-divider { width: 80%; }
 }
-
 @media (max-width: 480px) {
     body { font-size: 16px; }
     h1 { font-size: 20px; }
     .proclamation-banner { padding: 12px 20px; }
     .sub-head { font-size: 9px; letter-spacing: 5px; }
-    .philosophy-box { 
-        padding: 24px 20px; 
-        font-size: 17px;
-        margin: 32px 0;
-    }
-    .chapter-opener { 
-        padding: 24px 20px;
-    }
+    .philosophy-box { padding: 24px 20px; font-size: 17px; margin: 32px 0; }
+    .chapter-opener { padding: 24px 20px; }
     .chapter-opener h2 { font-size: 18px; }
     .chapter-opener .chap-watermark { display: none; }
     .image-block { margin: 40px 0; }
-    .image-pair { margin: 40px 0; gap: 24px; }
-    .image-block .img-container { 
-        min-height: 200px;
-        max-height: 350px;
-    }
-    .image-block img { max-height: 350px; }
-    .image-pair .pair-container { 
-        min-height: 180px;
-        max-height: 280px;
-    }
-    .image-pair img { max-height: 280px; }
-}
-
-/* ──── ORIENTATION SUPPORT ──── */
-@media (orientation: landscape) and (max-width: 900px) {
-    .image-block .img-container { 
-        min-height: 200px;
-        max-height: 350px;
-    }
-    .image-block img { max-height: 350px; }
-    .image-pair .pair-container { 
-        min-height: 180px;
-        max-height: 280px;
-    }
-    .image-pair img { max-height: 280px; }
-}
-
-@media (orientation: portrait) and (max-width: 600px) {
-    .image-block .img-container { 
-        min-height: 250px;
-        max-height: 450px;
-    }
-    .image-block img { max-height: 450px; }
-    .image-pair .pair-container { 
-        min-height: 220px;
-        max-height: 380px;
-    }
-    .image-pair img { max-height: 380px; }
+    .image-stack { margin: 40px 0; }
+    .image-block img { max-height: 320px; }
+    .image-stack .stack-item img { max-height: 280px; }
+    .image-caption { padding: 10px 12px 0; font-size: 13px; }
+    .stack-caption { padding: 10px 12px 0; font-size: 13px; }
+    .image-stack .stack-divider { width: 90%; }
 }
     </style>
 </head>
@@ -608,13 +542,9 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
         </svg>
     </div>
 
-    <!-- IMAGE 1: Turner — The Fighting Temeraire (full-bleed opener) -->
+    <!-- IMAGE 1: Turner — centred, full-bleed -->
     <div class="full-bleed image-block">
-        <img
-            src="Truner.png"
-            alt="Turner — The Fighting Temeraire, 1839"
-            loading="lazy"
-        />
+        <img src="Truner.png" alt="Turner — The Fighting Temeraire, 1839" loading="lazy"/>
         <div class="image-caption">
             <b>J.M.W. Turner — The Fighting Temeraire, 1839.</b><br>
             The great vessel that survived every storm, now yielding to the tide of history.
@@ -669,27 +599,22 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
         <div class="chap-watermark">I</div>
     </div>
 
-    <!-- IMAGE PAIR: Ptolemy (left) + School of Athens (right) -->
-    <div class="full-bleed image-pair">
-        <div>
-            <img
-                src="Ptolemy.png"
-                alt="Ptolemy World Map, 1482"
-                loading="lazy"
-            />
-            <div class="image-pair-caption">
+    <!-- IMAGE STACK: Ptolemy then Raphael — vertically centred, symmetrical -->
+    <div class="full-bleed image-stack">
+        <div class="stack-item">
+            <img src="Ptolemy.png" alt="Ptolemy World Map, 1482" loading="lazy"/>
+            <div class="stack-caption">
                 <b>Ptolemy's World Map, 1482.</b><br>
                 We choose the ecosystem before the organism.
                 The sovereign bet begins with the soil.
             </div>
         </div>
-        <div>
-            <img
-                src="Raphael.png"
-                alt="Raphael — School of Athens, 1511"
-                loading="lazy"
-            />
-            <div class="image-pair-caption">
+
+        <div class="stack-divider"></div>
+
+        <div class="stack-item">
+            <img src="Raphael.png" alt="Raphael — School of Athens, 1511" loading="lazy"/>
+            <div class="stack-caption">
                 <b>Raphael — School of Athens, 1511.</b><br>
                 A group of people is only as effective as the mind that leads them.
                 We invest in those who think at this level.
@@ -731,14 +656,9 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
         <div class="chap-watermark">II</div>
     </div>
 
-    <!-- IMAGE 4: Friedrich Wanderer (Chapter II full-bleed) -->
+    <!-- IMAGE: Friedrich — centred -->
     <div class="full-bleed image-block">
-        <img
-            src="Friedrich.png"
-            alt="Friedrich — Wanderer Above the Sea of Fog, 1818"
-            loading="lazy"
-            style="object-position: center 20%;"
-        />
+        <img src="Friedrich.png" alt="Friedrich — Wanderer Above the Sea of Fog, 1818" loading="lazy"/>
         <div class="image-caption">
             <b>Caspar David Friedrich — Wanderer Above the Sea of Fog, 1818.</b><br>
             Above the noise. Above the quarter. Thinking in centuries while the world thinks in days.
@@ -746,13 +666,9 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
         </div>
     </div>
 
-    <!-- IMAGE 5: Tower of Babel (before archive list) -->
+    <!-- IMAGE: Bruegel — centred -->
     <div class="full-bleed image-block" style="margin-top:0;">
-        <img
-            src="Bruegel.png"
-            alt="Bruegel — Tower of Babel, 1563"
-            loading="lazy"
-        />
+        <img src="Bruegel.png" alt="Bruegel — Tower of Babel, 1563" loading="lazy"/>
         <div class="image-caption">
             <b>Pieter Bruegel — The Tower of Babel, 1563.</b><br>
             Civilisation has always built upward — generation after generation, stone upon stone.
@@ -800,7 +716,7 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
           </g>
         </svg>
         <p>"We bet on the continuation and advancement of human civilization itself."</p>
-        <div class="footer-mark">Sovereign Anchor Holding &nbsp;·&nbsp; </div>
+        <div class="footer-mark">Sovereign Anchor Holding &nbsp;·&nbsp; Est. MMXXVI</div>
     </div>
 
 </div>
