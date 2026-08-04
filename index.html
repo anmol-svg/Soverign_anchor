@@ -373,6 +373,62 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
 .footer-mark { font-family: "Cinzel", serif; font-size: 9px; letter-spacing: 5px; color: var(--gold); }
 .svg-divider { width: 100%; margin: 44px 0; display: block; }
 
+/* ──── KAIROX PORTAL ──── */
+.portal-section {
+    text-align: center;
+    margin: 70px 0;
+    padding: 46px 40px;
+    background: linear-gradient(160deg, var(--vellum-mid) 0%, var(--vellum-deep) 100%);
+    border: 1px solid var(--gold-mid);
+    position: relative;
+}
+.portal-section::before {
+    content: ''; position: absolute; inset: 5px;
+    border: 1px solid rgba(140,107,32,0.22); pointer-events: none;
+}
+.portal-glyph { font-size: 13px; color: var(--gold); opacity: 0.6; margin-bottom: 14px; }
+.portal-eyebrow {
+    font-family: "Cinzel", serif;
+    font-size: 9px; letter-spacing: 5px;
+    color: var(--gold); text-transform: uppercase;
+    margin-bottom: 12px;
+}
+.portal-title {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 27px; font-weight: 400;
+    color: var(--crimson-mid);
+    margin-bottom: 14px;
+}
+.portal-section p {
+    max-width: 520px;
+    margin: 0 auto 30px;
+    text-align: center;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic; font-size: 16.5px;
+    color: var(--ink-soft);
+}
+.portal-button {
+    display: inline-block;
+    font-family: "Cinzel", serif;
+    font-size: 11px; letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-lightest);
+    background: linear-gradient(135deg, var(--crimson) 0%, #4A0E16 100%);
+    border: 1px solid var(--gold-bright);
+    padding: 16px 42px;
+    text-decoration: none;
+    position: relative;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+}
+.portal-button:hover {
+    background: linear-gradient(135deg, #4A1268 0%, #230A38 100%);
+    border-color: #8A3CAC;
+    color: #F5E4A8;
+    box-shadow: 0 6px 22px rgba(90,20,130,0.35);
+    transform: translateY(-2px);
+}
+
 /* ──── RESPONSIVE ──── */
 @media (max-width: 1024px) {
     .page-outer { padding: 60px 40px 100px; }
@@ -414,6 +470,9 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
     .image-caption { padding: 10px 12px 0; font-size: 13px; }
     .stack-caption { padding: 10px 12px 0; font-size: 13px; }
     .image-stack .stack-divider { width: 90%; }
+    .portal-section { padding: 30px 22px; margin: 50px 0; }
+    .portal-title { font-size: 22px; }
+    .portal-button { padding: 14px 30px; font-size: 10px; letter-spacing: 3px; }
 }
     </style>
 </head>
@@ -692,9 +751,17 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
                 <li><a href="2026_annual_data.pdf" target="_blank">2026 Annual Data</a></li>
                 <li><a href="April,2026 Dialogue.pdf" target="_blank">April, 2026 Dialogue</a></li>
                 <li><a href="July,2026 Dialogue.pdf" target="_blank">July, 2026 Dialogue</a></li>
-                <li><a href="Library.pdf" target="_blank">The Library</a></li>
             </ul>
         </div>
+    </div>
+
+    <!-- KAIROX PORTAL -->
+    <div class="full-bleed portal-section">
+        <div class="portal-glyph">⚄</div>
+        <div class="portal-eyebrow">A Companion Codex</div>
+        <div class="portal-title">Kairox</div>
+        <p>A religion for an uncertain universe — probability, luck, and the mathematics of belief, kept in its own chapter.</p>
+        <a href="Kairox.html" class="portal-button" target="_blank">Enter Kairox →</a>
     </div>
 
     <!-- FOOTER -->
