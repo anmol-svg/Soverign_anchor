@@ -1,1 +1,905 @@
-hey
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Anchor Holding | Kairox</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=IM+Fell+English:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+:root {
+    --vellum:       #EFE6F5;
+    --vellum-mid:   #E1CFEB;
+    --vellum-deep:  #CBA8DB;
+    --vellum-darkest:#B58EC9;
+    --ink:          #150A20;
+    --ink-mid:      #241436;
+    --ink-soft:     #402457;
+    --ink-faint:    #6E5484;
+    --violet:       #4A1268;
+    --violet-mid:   #6A1E8C;
+    --violet-light: #8A3CAC;
+    --gold:         #8C6B20;
+    --gold-mid:     #B8900A;
+    --gold-bright:  #D4A820;
+    --gold-pale:    #E8C870;
+    --gold-lightest:#F5E4A8;
+    --margin-w:     220px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    background-color: var(--vellum);
+    background-image:
+        radial-gradient(ellipse 90% 50% at 10% 15%, rgba(120,60,160,0.14) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 70% at 90% 80%, rgba(90,40,130,0.11) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0.2'/%3E%3C/filter%3E%3Crect width='500' height='500' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+    font-family: "IM Fell English", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.9;
+    color: var(--ink);
+    min-height: 100vh;
+}
+.manuscript-border {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 999;
+    animation: borderFloat 8s ease-in-out infinite;
+}
+@keyframes borderFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 1; }
+    25% { transform: translate(2px, -2px) scale(1.002); opacity: 0.95; }
+    50% { transform: translate(-1px, 2px) scale(0.999); opacity: 0.98; }
+    75% { transform: translate(-2px, -1px) scale(1.001); opacity: 0.96; }
+}
+.manuscript-border svg {
+    width: 100%; height: 100%;
+    filter: drop-shadow(0 0 3px rgba(180, 130, 220, 0.18));
+}
+.page-outer {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 70px 60px 120px;
+    animation: pageReveal 1.4s ease both;
+}
+@keyframes pageReveal {
+    from { opacity:0; transform:translateY(16px); }
+    to { opacity:1; transform:translateY(0); }
+}
+.full-bleed { width: 100%; }
+.body-row {
+    display: grid;
+    grid-template-columns: var(--margin-w) 1fr;
+    gap: 0 52px;
+    align-items: start;
+}
+.margin-col { padding-top: 6px; position: sticky; top: 80px; }
+.margin-note {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 13.5px; font-style: italic;
+    color: var(--ink-faint); line-height: 1.65;
+    border-left: 2px solid var(--gold-pale);
+    padding-left: 12px; margin-bottom: 28px;
+}
+.margin-label {
+    font-family: "Cinzel", serif;
+    font-size: 8px; letter-spacing: 3.5px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 6px; display: block;
+}
+.margin-ornament { text-align: right; font-size: 16px; color: var(--gold); opacity: 0.55; margin-top: 20px; }
+.text-col { min-width: 0; }
+p { margin-bottom: 22px; text-align: justify; hyphens: auto; color: var(--ink-mid); }
+b, strong { color: var(--ink); font-weight: 600; }
+i, em { color: var(--ink-soft); }
+.drop-cap::first-letter {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 78px; font-weight: 700;
+    float: left; line-height: 0.72;
+    margin: 10px 10px 0 0;
+    color: var(--violet);
+    text-shadow: 1px 1px 0 var(--gold-pale);
+}
+h2 {
+    font-family: "Cinzel", serif;
+    font-size: 10px; letter-spacing: 5px;
+    text-transform: uppercase; color: var(--violet);
+    margin-bottom: 16px; text-align: center;
+    padding: 12px 0; position: relative;
+}
+h2::before, h2::after { content: ''; position: absolute; left: 0; right: 0; height: 1px; }
+h2::before { top: 0; background: linear-gradient(to right, transparent, var(--gold-mid) 20%, var(--gold-mid) 80%, transparent); }
+h2::after  { bottom: 0; background: linear-gradient(to right, transparent, var(--vellum-deep) 20%, var(--vellum-deep) 80%, transparent); }
+h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 23px; font-weight: 500; font-style: italic;
+    color: var(--violet-mid);
+    margin-top: 40px; margin-bottom: 12px;
+    padding-left: 18px; border-left: 3px solid var(--gold-pale);
+}
+.royal-crest { text-align: center; margin-bottom: 22px; padding-top: 10px; }
+.proclamation-banner {
+    text-align: center;
+    background: linear-gradient(180deg, var(--violet) 0%, var(--violet-mid) 50%, var(--violet) 100%);
+    border-top: 2px solid var(--gold-bright);
+    border-bottom: 2px solid var(--gold-bright);
+    padding: 14px 40px; position: relative;
+}
+.proclamation-banner::before {
+    content: ''; position: absolute; inset: 4px 0;
+    border-top: 1px solid rgba(232,200,112,0.3);
+    border-bottom: 1px solid rgba(232,200,112,0.3);
+    pointer-events: none;
+}
+.sub-head {
+    font-family: "Cinzel", serif;
+    font-size: 10px; letter-spacing: 7px;
+    text-transform: uppercase; color: var(--gold-lightest);
+}
+.header-container { text-align: center; padding: 36px 0 48px; }
+h1 {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 34px; font-weight: 400;
+    color: var(--ink); line-height: 1.3; margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+.est-line {
+    font-family: "Cinzel", serif;
+    font-size: 9px; letter-spacing: 5px;
+    color: var(--gold); text-transform: uppercase; margin-top: 12px;
+}
+.philosophy-box {
+    position: relative;
+    background: linear-gradient(160deg, var(--vellum-mid) 0%, var(--vellum-deep) 100%);
+    border: 1px solid var(--gold-mid);
+    padding: 46px 52px 42px 58px; margin: 48px 0;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 21px; font-style: italic; font-weight: 400;
+    color: var(--ink); line-height: 1.8;
+    box-shadow: inset 0 0 40px rgba(90,20,130,0.10), 2px 4px 18px rgba(0,0,0,0.14);
+}
+.philosophy-box::before {
+    content: ''; position: absolute; inset: 5px;
+    border: 1px solid rgba(122,52,166,0.22); pointer-events: none;
+}
+.philosophy-box .corner { position: absolute; width: 22px; height: 22px; }
+.philosophy-box .corner svg { width: 22px; height: 22px; }
+.philosophy-box .c-tl { top: -1px; left: -1px; }
+.philosophy-box .c-tr { top: -1px; right: -1px; transform: scaleX(-1); }
+.philosophy-box .c-bl { bottom: -1px; left: -1px; transform: scaleY(-1); }
+.philosophy-box .c-br { bottom: -1px; right: -1px; transform: scale(-1,-1); }
+.drop-quote {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 86px; line-height: 0.75;
+    color: var(--violet); opacity: 0.14;
+    position: absolute; top: 14px; left: 12px;
+    user-select: none; font-style: normal;
+}
+.image-block {
+    margin: 60px 0;
+    animation: imageSlideIn 0.8s ease-out both;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+@keyframes imageSlideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.image-block img {
+    display: block;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    max-height: 520px;
+    object-fit: contain;
+    border: 1px solid var(--gold-mid);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.22);
+    filter: sepia(45%) hue-rotate(250deg) saturate(1.4) contrast(1.1) brightness(0.88);
+    transition: filter 0.6s ease, transform 0.3s ease;
+}
+.image-block img:hover {
+    filter: sepia(18%) hue-rotate(250deg) saturate(1.05) contrast(1.04) brightness(0.97);
+    transform: scale(1.01);
+}
+.image-caption {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 13.5px; font-style: italic;
+    color: var(--ink-faint); text-align: center;
+    padding: 12px 30px 0; letter-spacing: 0.3px; line-height: 1.75;
+    max-width: 680px;
+}
+.image-caption b { font-style: normal; color: var(--ink-soft); font-weight: 500; }
+.image-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin: 52px 0;
+    animation: imageSlideIn 0.8s ease-out both;
+}
+.image-stack .stack-divider {
+    width: 60%;
+    max-width: 420px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-mid) 30%, var(--gold-mid) 70%, transparent);
+    margin: 28px 0;
+    position: relative;
+}
+.image-stack .stack-divider::after {
+    content: '⚄';
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--vellum);
+    padding: 0 10px;
+    font-size: 11px;
+    color: var(--gold);
+    font-family: "Cinzel", serif;
+}
+.image-stack .stack-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 720px;
+}
+.image-stack .stack-item img {
+    display: block;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    max-height: 460px;
+    object-fit: contain;
+    border: 1px solid var(--gold-mid);
+    box-shadow: 0 3px 22px rgba(0,0,0,0.18);
+    filter: sepia(45%) hue-rotate(250deg) saturate(1.35) contrast(1.1) brightness(0.86);
+    transition: filter 0.6s ease, transform 0.3s ease;
+}
+.image-stack .stack-item img:hover {
+    filter: sepia(18%) hue-rotate(250deg) saturate(1.05) contrast(1.04) brightness(0.96);
+    transform: scale(1.015);
+}
+.stack-caption {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 13.5px; font-style: italic;
+    color: var(--ink-faint); text-align: center;
+    padding: 12px 24px 0; line-height: 1.75;
+    max-width: 560px;
+}
+.stack-caption b { font-style: normal; color: var(--ink-soft); font-weight: 500; }
+.transition-note {
+    text-align: center; padding: 28px 0; margin: 52px 0;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 18.5px; font-style: italic;
+    color: var(--ink-soft); line-height: 2;
+}
+.drow { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+.drow.bot { margin-top: 18px; margin-bottom: 0; }
+.drow .dline { flex:1; height:1px; background: linear-gradient(to right, transparent, var(--gold-mid) 40%, var(--gold-mid) 60%, transparent); }
+.drow .dsym { font-family:"Cinzel",serif; font-size:9px; letter-spacing:5px; color:var(--gold); }
+.transition-note b { color: var(--violet); font-weight:500; font-style:normal; }
+.chapter-opener {
+    margin: 80px 0 50px; padding: 50px 60px;
+    background: linear-gradient(135deg, var(--violet) 0%, #230A38 100%);
+    border: 1px solid var(--gold-mid);
+    position: relative; overflow: hidden;
+    animation: chapterReveal 1s ease-out both;
+}
+@keyframes chapterReveal {
+    from { opacity: 0; transform: translateX(-20px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+.chapter-opener::before {
+    content: ''; position: absolute; inset: 6px;
+    border: 1px solid rgba(232,200,112,0.2); pointer-events: none;
+}
+.chapter-opener .chap-num {
+    font-family: "Cinzel", serif; font-size: 9px; letter-spacing: 6px;
+    color: var(--gold-pale); opacity: 0.7;
+    text-transform: uppercase; display: block; margin-bottom: 14px;
+}
+.chapter-opener h2 {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 24px; font-weight: 400;
+    color: var(--gold-lightest); letter-spacing: 0.5px;
+    text-align: left; padding: 0; margin: 0;
+}
+.chapter-opener h2::before, .chapter-opener h2::after { display: none; }
+.chapter-opener .chap-sub {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 16px; font-style: italic;
+    color: var(--gold-pale); opacity: 0.75; margin-top: 10px;
+}
+.chapter-opener .chap-watermark {
+    position: absolute; right: 40px; top: 50%;
+    transform: translateY(-50%);
+    font-family: "Cinzel Decorative", serif;
+    font-size: 110px; font-weight: 700;
+    color: rgba(232,200,112,0.07);
+    user-select: none; line-height: 1;
+}
+ul { list-style: none; padding-left: 0; margin: 22px 0; }
+li { position: relative; padding-left: 30px; margin-bottom: 16px; color: var(--ink-mid); }
+li::before { content:'⚄'; position:absolute; left:0; top:1px; font-size:11px; color:var(--gold); }
+.archive-list li {
+    padding: 14px 0 14px 30px;
+    border-bottom: 1px solid var(--vellum-deep);
+    transition: all .25s;
+}
+.archive-list li:first-child { border-top: 1px solid var(--vellum-deep); }
+.archive-list li:hover {
+    padding-left: 40px;
+    background: linear-gradient(to right, rgba(74,18,104,0.05), transparent);
+}
+.archive-list li::before { content:'❧'; font-size:14px; color:var(--violet); top:50%; transform:translateY(-50%); }
+a {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 17.5px; color: var(--ink-mid);
+    text-decoration: none; border-bottom: 1px solid var(--gold-pale);
+    transition: color .2s, border-color .2s;
+}
+a:hover { color: var(--violet); border-bottom-color: var(--violet); }
+.footer { margin-top: 100px; text-align: center; }
+.footer p {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 19px; font-style: italic;
+    color: var(--ink-soft); margin: 26px 0 18px;
+}
+.footer-mark { font-family: "Cinzel", serif; font-size: 9px; letter-spacing: 5px; color: var(--gold); }
+.svg-divider { width: 100%; margin: 44px 0; display: block; }
+
+/* ══════════════════════════════════════════
+   VERSES — numbered aphorisms, Bible/Gita-style
+══════════════════════════════════════════ */
+.verse-list { margin: 6px 0 10px; }
+.verse {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 19px;
+    font-style: italic;
+    color: var(--ink-mid);
+    line-height: 1.6;
+    padding-left: 38px;
+    margin-bottom: 16px;
+    position: relative;
+}
+.verse .vnum {
+    position: absolute;
+    left: 0; top: 3px;
+    font-family: "Cinzel", serif;
+    font-style: normal;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gold);
+}
+.verse b { font-style: normal; color: var(--violet-mid); font-weight: 600; }
+
+/* ══════════════════════════════════════════
+   VIRTUE / SIN TABLET
+══════════════════════════════════════════ */
+.virtue-sin-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0 40px;
+    margin: 56px 0 60px;
+    padding: 42px 48px;
+    background: linear-gradient(160deg, var(--vellum-mid) 0%, var(--vellum-deep) 100%);
+    border: 1px solid var(--gold-mid);
+    box-shadow: inset 0 0 40px rgba(90,20,130,0.09), 2px 4px 18px rgba(0,0,0,0.12);
+}
+.vs-col h2 { text-align: left; padding: 0 0 14px; }
+.vs-col h2::before, .vs-col h2::after { display:none; }
+.vs-virtues h2 { color: var(--violet-mid); }
+.vs-sins h2 { color: var(--ink-faint); }
+.vs-list { margin: 8px 0 0; }
+.vs-list li { font-size: 16.5px; margin-bottom: 15px; }
+.vs-sins .vs-list li::before { content:'✕'; color: var(--ink-faint); font-size: 10px; }
+.vs-divider {
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold-mid) 20%, var(--gold-mid) 80%, transparent);
+}
+
+@media (max-width: 1024px) {
+    .page-outer { padding: 60px 40px 100px; }
+    h1 { font-size: 28px; }
+    .chapter-opener { padding: 40px 40px; }
+    .chapter-opener .chap-watermark { font-size: 90px; }
+    .image-block img { max-height: 460px; }
+    .image-stack .stack-item img { max-height: 400px; }
+}
+@media (max-width: 760px) {
+    .body-row { grid-template-columns: 1fr; gap: 0; }
+    .margin-col { display: none; }
+    .page-outer { padding: 50px 24px 80px; }
+    :root { --margin-w: 0px; }
+    h1 { font-size: 24px; }
+    .philosophy-box { padding: 32px 28px; font-size: 18px; }
+    .drop-quote { font-size: 60px; }
+    .chapter-opener { padding: 30px 24px; margin: 50px 0 36px; }
+    .chapter-opener h2 { font-size: 20px; }
+    .chapter-opener .chap-watermark { font-size: 70px; right: 20px; }
+    .transition-note { font-size: 16px; padding: 20px 0; }
+    .image-block img { max-height: 380px; }
+    .image-stack .stack-item img { max-height: 340px; }
+    .image-stack .stack-divider { width: 80%; }
+    .virtue-sin-grid { grid-template-columns: 1fr; gap: 30px 0; padding: 30px 26px; }
+    .vs-divider { width: 100%; height: 1px; background: linear-gradient(to right, transparent, var(--gold-mid) 20%, var(--gold-mid) 80%, transparent); }
+    .verse { font-size: 17px; padding-left: 32px; }
+}
+@media (max-width: 480px) {
+    body { font-size: 16px; }
+    h1 { font-size: 21px; }
+    .proclamation-banner { padding: 12px 20px; }
+    .sub-head { font-size: 9px; letter-spacing: 5px; }
+    .philosophy-box { padding: 24px 20px; font-size: 17px; margin: 32px 0; }
+    .chapter-opener { padding: 24px 20px; }
+    .chapter-opener h2 { font-size: 18px; }
+    .chapter-opener .chap-watermark { display: none; }
+    .image-block { margin: 40px 0; }
+    .image-stack { margin: 40px 0; }
+    .image-block img { max-height: 320px; }
+    .image-stack .stack-item img { max-height: 280px; }
+    .image-caption { padding: 10px 12px 0; font-size: 13px; }
+    .stack-caption { padding: 10px 12px 0; font-size: 13px; }
+    .image-stack .stack-divider { width: 90%; }
+}
+    </style>
+</head>
+<body>
+
+<div class="manuscript-border">
+<svg viewBox="0 0 1000 650" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gH" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#8C6B20" stop-opacity="0"/>
+      <stop offset="18%"  stop-color="#D4A820" stop-opacity="0.85"/>
+      <stop offset="50%"  stop-color="#D4A820"/>
+      <stop offset="82%"  stop-color="#D4A820" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#8C6B20" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="10" y="10" width="980" height="630" fill="none" stroke="url(#gH)" stroke-width="1.4"/>
+  <rect x="18" y="18" width="964" height="614" fill="none" stroke="#C4941A" stroke-width="0.6" stroke-opacity="0.45"/>
+  <rect x="23" y="23" width="954" height="604" fill="none" stroke="#C4941A" stroke-width="0.3" stroke-opacity="0.25"/>
+  <polyline points="10,80 10,10 80,10" fill="none" stroke="#D4A820" stroke-width="2"/>
+  <polyline points="20,75 20,20 75,20" fill="none" stroke="#C4941A" stroke-width="0.8" opacity="0.5"/>
+  <path d="M10,10 Q32,20 24,40 Q16,55 30,50 Q44,45 36,28" fill="none" stroke="#B8900A" stroke-width="1.2" opacity="0.65"/>
+  <circle cx="10" cy="10" r="5" fill="#D4A820" opacity="0.65"/>
+  <circle cx="10" cy="10" r="2.2" fill="#F5E4A8" opacity="0.9"/>
+  <polyline points="920,10 990,10 990,80" fill="none" stroke="#D4A820" stroke-width="2"/>
+  <polyline points="925,20 980,20 980,75" fill="none" stroke="#C4941A" stroke-width="0.8" opacity="0.5"/>
+  <path d="M990,10 Q968,20 976,40 Q984,55 970,50 Q956,45 964,28" fill="none" stroke="#B8900A" stroke-width="1.2" opacity="0.65"/>
+  <circle cx="990" cy="10" r="5" fill="#D4A820" opacity="0.65"/>
+  <circle cx="990" cy="10" r="2.2" fill="#F5E4A8" opacity="0.9"/>
+  <polyline points="10,570 10,640 80,640" fill="none" stroke="#D4A820" stroke-width="2"/>
+  <polyline points="20,575 20,630 75,630" fill="none" stroke="#C4941A" stroke-width="0.8" opacity="0.5"/>
+  <path d="M10,640 Q32,620 24,600 Q16,585 30,590 Q44,595 36,612" fill="none" stroke="#B8900A" stroke-width="1.2" opacity="0.65"/>
+  <circle cx="10" cy="640" r="5" fill="#D4A820" opacity="0.65"/>
+  <circle cx="10" cy="640" r="2.2" fill="#F5E4A8" opacity="0.9"/>
+  <polyline points="920,640 990,640 990,570" fill="none" stroke="#D4A820" stroke-width="2"/>
+  <polyline points="925,630 980,630 980,575" fill="none" stroke="#C4941A" stroke-width="0.8" opacity="0.5"/>
+  <path d="M990,640 Q968,620 976,600 Q984,585 970,590 Q956,595 964,612" fill="none" stroke="#B8900A" stroke-width="1.2" opacity="0.65"/>
+  <circle cx="990" cy="640" r="5" fill="#D4A820" opacity="0.65"/>
+  <circle cx="990" cy="640" r="2.2" fill="#F5E4A8" opacity="0.9"/>
+  <polygon points="500,10 507,17 500,24 493,17" fill="#D4A820" opacity="0.55"/>
+  <polygon points="500,640 507,633 500,626 493,633" fill="#D4A820" opacity="0.55"/>
+  <polygon points="10,325 17,332 24,325 17,318" fill="#D4A820" opacity="0.45"/>
+  <polygon points="990,325 983,332 976,325 983,318" fill="#D4A820" opacity="0.45"/>
+</svg>
+</div>
+
+<div class="page-outer">
+
+    <!-- CREST -->
+    <div class="full-bleed royal-crest">
+      <svg width="120" height="110" viewBox="0 0 130 120" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="cg1b" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#F5DFA0"/>
+            <stop offset="50%" stop-color="#D4A820"/>
+            <stop offset="100%" stop-color="#8C6B20"/>
+          </linearGradient>
+          <linearGradient id="cg2b" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#8C6B20"/>
+            <stop offset="50%" stop-color="#D4A820"/>
+            <stop offset="100%" stop-color="#8C6B20"/>
+          </linearGradient>
+        </defs>
+        <path d="M65,8 L100,18 L100,60 Q100,90 65,106 Q30,90 30,60 L30,18 Z" fill="url(#cg1b)" opacity="0.13" stroke="#D4A820" stroke-width="1"/>
+        <path d="M65,13 L96,22 L96,59 Q96,87 65,102 Q34,87 34,59 L34,22 Z" fill="none" stroke="#D4A820" stroke-width="0.4" stroke-opacity="0.35"/>
+        <g transform="translate(65,52)">
+          <rect x="-22" y="13" width="44" height="9" rx="1" fill="url(#cg2b)"/>
+          <rect x="-20" y="20" width="40" height="4" rx="1" fill="#D4A820" opacity="0.45"/>
+          <path d="M-22,13 L-22,-3 L-12,7 L0,-15 L12,7 L22,-3 L22,13 Z" fill="url(#cg1b)"/>
+          <circle cx="0" cy="-4" r="4" fill="#4A1268"/>
+          <circle cx="0" cy="-4" r="2.2" fill="#D4A820" opacity="0.55"/>
+          <circle cx="-15" cy="7" r="2.5" fill="#4A1268"/>
+          <circle cx="15" cy="7" r="2.5" fill="#4A1268"/>
+          <circle cx="-17" cy="15" r="2.4" fill="#F5DFA0"/>
+          <circle cx="-8"  cy="15" r="2.4" fill="#F5DFA0"/>
+          <circle cx="0"   cy="15" r="2.4" fill="#F5DFA0"/>
+          <circle cx="8"   cy="15" r="2.4" fill="#F5DFA0"/>
+          <circle cx="17"  cy="15" r="2.4" fill="#F5DFA0"/>
+        </g>
+        <g transform="translate(65,80)" stroke="#D4A820" stroke-width="1.3" fill="none" opacity="0.65">
+          <g transform="rotate(-22)">
+            <line x1="0" y1="-13" x2="0" y2="13"/>
+            <line x1="-6" y1="-9" x2="6" y2="-9"/>
+            <path d="M-7,10 Q0,15 7,10"/>
+            <circle cx="0" cy="-13" r="2" fill="#D4A820" stroke="none"/>
+          </g>
+          <g transform="rotate(22)">
+            <line x1="0" y1="-13" x2="0" y2="13"/>
+            <line x1="-6" y1="-9" x2="6" y2="-9"/>
+            <path d="M-7,10 Q0,15 7,10"/>
+            <circle cx="0" cy="-13" r="2" fill="#D4A820" stroke="none"/>
+          </g>
+        </g>
+        <text x="20" y="64" font-size="11" fill="#D4A820" opacity="0.55" text-anchor="middle">⚄</text>
+        <text x="110" y="64" font-size="11" fill="#D4A820" opacity="0.55" text-anchor="middle">⚄</text>
+      </svg>
+    </div>
+
+    <!-- BANNER -->
+    <div class="full-bleed proclamation-banner">
+        <div class="sub-head">Sovereign Anchor Holding</div>
+    </div>
+
+    <div class="full-bleed header-container">
+        <h1>Kairox</h1>
+        <div class="est-line">A Religion for an Uncertain Universe</div>
+        <svg class="svg-divider" viewBox="0 0 800 26" xmlns="http://www.w3.org/2000/svg" style="margin:32px 0 0;">
+          <defs>
+            <linearGradient id="hdg" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#8C6B20" stop-opacity="0"/>
+              <stop offset="15%"  stop-color="#D4A820" stop-opacity="0.9"/>
+              <stop offset="50%"  stop-color="#D4A820"/>
+              <stop offset="85%"  stop-color="#D4A820" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#8C6B20" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <line x1="0" y1="13" x2="800" y2="13" stroke="url(#hdg)" stroke-width="1.4"/>
+          <line x1="0" y1="15.5" x2="800" y2="15.5" stroke="url(#hdg)" stroke-width="0.5" opacity="0.3"/>
+          <path d="M70,13 Q95,5 120,13 Q145,21 170,13" fill="none" stroke="#D4A820" stroke-width="1" opacity="0.55"/>
+          <path d="M730,13 Q705,5 680,13 Q655,21 630,13" fill="none" stroke="#D4A820" stroke-width="1" opacity="0.55"/>
+          <polygon points="400,5 407,13 400,21 393,13" fill="#D4A820"/>
+          <polygon points="386,9 390,13 386,17 382,13" fill="#D4A820" opacity="0.55"/>
+          <polygon points="414,9 418,13 414,17 410,13" fill="#D4A820" opacity="0.55"/>
+          <polygon points="210,10 213,13 210,16 207,13" fill="#D4A820" opacity="0.35"/>
+          <polygon points="590,10 593,13 590,16 587,13" fill="#D4A820" opacity="0.35"/>
+        </svg>
+    </div>
+
+    <!-- PROLOGUE -->
+    <div class="body-row">
+        <div class="margin-col">
+            <div class="margin-note">
+                <span class="margin-label">On Certainty</span>
+                Every belief is a probability. Every decision, a wager placed under uncertainty.
+            </div>
+            <div class="margin-ornament">⚄</div>
+        </div>
+        <div class="text-col">
+            <p class="drop-cap">Kairox begins with one observation: reality is not a machine. It is a probability distribution — and the history we remember is only the path it happened to take.</p>
+            <div class="philosophy-box">
+                <div class="corner c-tl"><svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 L12,0 M0,0 L0,12" fill="none" stroke="#D4A820" stroke-width="1.6"/><circle cx="0" cy="0" r="2.5" fill="#D4A820" opacity="0.7"/></svg></div>
+                <div class="corner c-tr"><svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 L12,0 M0,0 L0,12" fill="none" stroke="#D4A820" stroke-width="1.6"/><circle cx="0" cy="0" r="2.5" fill="#D4A820" opacity="0.7"/></svg></div>
+                <div class="corner c-bl"><svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 L12,0 M0,0 L0,12" fill="none" stroke="#D4A820" stroke-width="1.6"/><circle cx="0" cy="0" r="2.5" fill="#D4A820" opacity="0.7"/></svg></div>
+                <div class="corner c-br"><svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 L12,0 M0,0 L0,12" fill="none" stroke="#D4A820" stroke-width="1.6"/><circle cx="0" cy="0" r="2.5" fill="#D4A820" opacity="0.7"/></svg></div>
+                <span class="drop-quote">&ldquo;</span>
+                No one possesses certainty. Every belief is a probability; every decision, a wager placed under uncertainty. The wise do not ask, &ldquo;Am I right?&rdquo; They ask, &ldquo;How likely am I to be right?&rdquo;
+            </div>
+        </div>
+    </div>
+
+    <!-- TRANSITION -->
+    <div class="full-bleed transition-note">
+        <div class="drow">
+            <div class="dline"></div>
+            <div class="dsym">⚄ &nbsp; ✦ &nbsp; ⚄</div>
+            <div class="dline"></div>
+        </div>
+        We do not resist the fog. We learn to <b>walk through it wisely</b> —
+        guided by probability, humility, and the discipline of updating.
+        <div class="drow bot">
+            <div class="dline"></div>
+            <div class="dsym">⚄ &nbsp; ✦ &nbsp; ⚄</div>
+            <div class="dline"></div>
+        </div>
+    </div>
+
+    <!-- BOOK ONE -->
+    <div class="full-bleed chapter-opener">
+        <span class="chap-num">Book One</span>
+        <h2>The Fog</h2>
+        <div class="chap-sub">We do not live in the world. We live in our map of it.</div>
+        <div class="chap-watermark">I</div>
+    </div>
+
+    <div class="full-bleed image-block">
+        <img src="TurnerSnowStorm.png" alt="Turner — Snow Storm, Steam-Boat off a Harbour's Mouth, 1842" loading="lazy"/>
+        <div class="image-caption">
+            <b>J.M.W. Turner — Snow Storm, Steam-Boat off a Harbour's Mouth, 1842.</b><br>
+            Reality does not resolve into clean lines — it churns until only the outline of the vessel remains certain. This is the fog Kairox is asked to navigate.
+        </div>
+    </div>
+
+    <div class="body-row">
+        <div class="margin-col">
+            <div class="margin-note">
+                <span class="margin-label">On Maps</span>
+                We live inside a map of reality, never reality itself.
+            </div>
+            <div class="margin-ornament">⚄</div>
+            <div class="margin-note" style="margin-top:40px;">
+                <span class="margin-label">On History</span>
+                Every present held a thousand futures before this one was chosen.
+            </div>
+        </div>
+        <div class="text-col">
+            <div class="verse-list">
+                <div class="verse"><span class="vnum">1</span> We live inside a map of reality, never reality itself.</div>
+                <div class="verse"><span class="vnum">2</span> The map is always incomplete. Information is partial; perception, biased.</div>
+                <div class="verse"><span class="vnum">3</span> Some days the road is visible. Some days it disappears. <b>The task is not to clear the fog — it is to walk through it.</b></div>
+                <div class="verse"><span class="vnum">4</span> History looks inevitable only after it happens.</div>
+                <div class="verse"><span class="vnum">5</span> Every present held a thousand futures before this one was chosen.</div>
+                <div class="verse"><span class="vnum">6</span> Every victory hides a world where it failed. Every failure, a world where it did not.</div>
+                <div class="verse"><span class="vnum">7</span> Do not mistake the path taken for the only path that could have been.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOK TWO -->
+    <div class="full-bleed chapter-opener">
+        <span class="chap-num">Book Two</span>
+        <h2>Fortune</h2>
+        <div class="chap-sub">Fortune is not judged. It is acknowledged.</div>
+        <div class="chap-watermark">II</div>
+    </div>
+
+    <div class="full-bleed image-stack">
+        <div class="stack-item">
+            <img src="WheelOfFortune.png" alt="Rota Fortunae — The Wheel of Fortune, 13th-century manuscript" loading="lazy"/>
+            <div class="stack-caption">
+                <b>Rota Fortunae — The Wheel of Fortune, 13th-century manuscript tradition.</b><br>
+                I shall reign. I reign. I have reigned. I am without a kingdom. Fortune turns for every follower alike.
+            </div>
+        </div>
+        <div class="stack-divider"></div>
+        <div class="stack-item">
+            <img src="GreatWave.png" alt="Hokusai — The Great Wave off Kanagawa, c. 1831" loading="lazy"/>
+            <div class="stack-caption">
+                <b>Katsushika Hokusai — The Great Wave off Kanagawa, c. 1831.</b><br>
+                The boatmen do not command the wave. They only choose how well they meet it.
+            </div>
+        </div>
+    </div>
+
+    <div class="body-row">
+        <div class="margin-col">
+            <div class="margin-note">
+                <span class="margin-label">On Luck</span>
+                Luck decides who is standing at the door when it opens.
+            </div>
+            <div class="margin-ornament">⚄</div>
+            <div class="margin-note" style="margin-top:40px;">
+                <span class="margin-label">On Confidence</span>
+                Confidence should never outrun evidence.
+            </div>
+        </div>
+        <div class="text-col">
+            <div class="verse-list">
+                <div class="verse"><span class="vnum">1</span> Luck is not magic. It is uncertainty, realized.</div>
+                <div class="verse"><span class="vnum">2</span> Talent prepares. Effort prepares. <b>Luck decides who is standing at the door when it opens.</b></div>
+                <div class="verse"><span class="vnum">3</span> To worship luck is foolish. To deny it is also foolish.</div>
+                <div class="verse"><span class="vnum">4</span> Say not &ldquo;this will happen.&rdquo; Say &ldquo;there is a seventy percent chance.&rdquo;</div>
+                <div class="verse"><span class="vnum">5</span> Say not &ldquo;he is wrong.&rdquo; Say &ldquo;I trust another explanation more.&rdquo;</div>
+                <div class="verse"><span class="vnum">6</span> Ask not &ldquo;can I win?&rdquo; Ask what you gain if right, and what you lose if wrong.</div>
+                <div class="verse"><span class="vnum">7</span> Aim for the long run, not the single roll. Sometimes the wise choice loses; sometimes the foolish one wins. <b>Judge the process, not the outcome.</b></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOK THREE -->
+    <div class="full-bleed chapter-opener">
+        <span class="chap-num">Book Three</span>
+        <h2>Conviction</h2>
+        <div class="chap-sub">A belief that costs nothing is not a belief. It is entertainment.</div>
+        <div class="chap-watermark">III</div>
+    </div>
+
+    <div class="full-bleed image-stack">
+        <div class="stack-item">
+            <img src="RaftOfMedusa.png" alt="Géricault — The Raft of the Medusa, 1818–1819" loading="lazy"/>
+            <div class="stack-caption">
+                <b>Théodore Géricault — The Raft of the Medusa, 1818–1819.</b><br>
+                A belief only becomes real when someone risks something because of it.
+            </div>
+        </div>
+        <div class="stack-divider"></div>
+        <div class="stack-item">
+            <img src="BruegelProverbs.png" alt="Bruegel — Netherlandish Proverbs, 1559" loading="lazy"/>
+            <div class="stack-caption">
+                <b>Pieter Bruegel the Elder — Netherlandish Proverbs, 1559.</b><br>
+                A hundred small truths, unfolding at once. No single story holds the whole scene.
+            </div>
+        </div>
+    </div>
+
+    <div class="body-row">
+        <div class="margin-col">
+            <div class="margin-note">
+                <span class="margin-label">On Conviction</span>
+                A belief that costs nothing is not a belief.
+            </div>
+            <div class="margin-ornament">⚄</div>
+            <div class="margin-note" style="margin-top:40px;">
+                <span class="margin-label">On Incentives</span>
+                Watch what people do. Incentive speaks before word does.
+            </div>
+        </div>
+        <div class="text-col">
+            <div class="verse-list">
+                <div class="verse"><span class="vnum">1</span> Money, time, reputation, comfort — conviction spends one of these, or it is not conviction.</div>
+                <div class="verse"><span class="vnum">2</span> Truth exists. Certainty does not.</div>
+                <div class="verse"><span class="vnum">3</span> To change your mind is not weakness. <b>It is loyalty to what is real, over what is comfortable.</b></div>
+                <div class="verse"><span class="vnum">4</span> Watch what people do. Their incentives speak before their words do.</div>
+                <div class="verse"><span class="vnum">5</span> Simple stories are attractive, and usually wrong. Most things have many causes.</div>
+                <div class="verse"><span class="vnum">6</span> Seek the second explanation before you trust the first.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIRTUES / SINS -->
+    <div class="full-bleed virtue-sin-grid">
+        <div class="vs-col vs-virtues">
+            <h2>The Five Virtues</h2>
+            <ul class="vs-list">
+                <li><b>Intellectual Humility</b> — know the edge of what you know.</li>
+                <li><b>Probabilistic Thinking</b> — think in ranges, not absolutes.</li>
+                <li><b>Rational Courage</b> — act, in spite of the fog.</li>
+                <li><b>Adaptability</b> — let evidence move you.</li>
+                <li><b>Long-Term Thinking</b> — decide for decades, not for today.</li>
+            </ul>
+        </div>
+        <div class="vs-divider"></div>
+        <div class="vs-col vs-sins">
+            <h2>The Five Sins</h2>
+            <ul class="vs-list">
+                <li>Certainty.</li>
+                <li>Dogmatism.</li>
+                <li>Mistaking luck for skill.</li>
+                <li>Judging a decision only by how it turned out.</li>
+                <li>Ignoring the odds because the story feels true.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- BOOK FOUR -->
+    <div class="full-bleed chapter-opener">
+        <span class="chap-num">Book Four</span>
+        <h2>The Long Game</h2>
+        <div class="chap-sub">Not certainty. Better navigation.</div>
+        <div class="chap-watermark">IV</div>
+    </div>
+
+    <div class="full-bleed image-block">
+        <img src="DelphicSibyl.png" alt="Michelangelo — The Delphic Sibyl, Sistine Chapel, c. 1509" loading="lazy"/>
+        <div class="image-caption">
+            <b>Michelangelo — The Delphic Sibyl, Sistine Chapel ceiling, c. 1509.</b><br>
+            She does not know the future. She reads its likelihood, and turns toward it anyway.
+        </div>
+    </div>
+
+    <div class="body-row">
+        <div class="margin-col">
+            <div class="margin-note">
+                <span class="margin-label">On Time</span>
+                Time is the one currency that never returns.
+            </div>
+            <div class="margin-ornament">⚄</div>
+        </div>
+        <div class="text-col">
+            <div class="verse-list">
+                <div class="verse"><span class="vnum">1</span> Before you decide: what do you know, and what do you only believe?</div>
+                <div class="verse"><span class="vnum">2</span> What is your downside? Could you survive it? What would change your mind?</div>
+                <div class="verse"><span class="vnum">3</span> Success is never fully earned. Failure is never fully deserved. Both are part luck, part labor — <b>the wise learn to tell them apart.</b></div>
+                <div class="verse"><span class="vnum">4</span> Small gains, repeated for decades, become a difference too large to explain by any single year.</div>
+                <div class="verse"><span class="vnum">5</span> Time is the one currency that never returns. Spend it as if it were the only one that doesn't.</div>
+                <div class="verse"><span class="vnum">6</span> The purpose of a life is not certainty. <b>It is to leave behind better judgment than the judgment you inherited.</b></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRAYER -->
+    <div class="full-bleed transition-note">
+        <div class="drow">
+            <div class="dline"></div>
+            <div class="dsym">⚄ &nbsp; ✦ &nbsp; ⚄</div>
+            <div class="dline"></div>
+        </div>
+        Kairox does not pray for certainty. <b>It prays for clearer odds.</b><br>
+        Not for guaranteed success — for good judgment. Not to avoid failure — to survive it, and learn.
+        <div class="drow bot">
+            <div class="dline"></div>
+            <div class="dsym">⚄ &nbsp; ✦ &nbsp; ⚄</div>
+            <div class="dline"></div>
+        </div>
+    </div>
+
+    <!-- OATH -->
+    <div class="body-row">
+        <div class="margin-col">
+            <div class="margin-note">
+                <span class="margin-label">The Oath</span>
+                Spoken before conviction, not after.
+            </div>
+            <div class="margin-ornament">⚄</div>
+        </div>
+        <div class="text-col">
+            <h3 style="text-align:center; border-left:none; padding-left:0;">The Kairox Oath</h3>
+            <div class="philosophy-box" style="text-align:center; font-size:19px;">
+                <div class="corner c-tl"><svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 L12,0 M0,0 L0,12" fill="none" stroke="#D4A820" stroke-width="1.6"/><circle cx="0" cy="0" r="2.5" fill="#D4A820" opacity="0.7"/></svg></div>
+                <div class="corner c-tr"><svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 L12,0 M0,0 L0,12" fill="none" stroke="#D4A820" stroke-width="1.6"/><circle cx="0" cy="0" r="2.5" fill="#D4A820" opacity="0.7"/></svg></div>
+                <div class="corner c-bl"><svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 L12,0 M0,0 L0,12" fill="none" stroke="#D4A820" stroke-width="1.6"/><circle cx="0" cy="0" r="2.5" fill="#D4A820" opacity="0.7"/></svg></div>
+                <div class="corner c-br"><svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 L12,0 M0,0 L0,12" fill="none" stroke="#D4A820" stroke-width="1.6"/><circle cx="0" cy="0" r="2.5" fill="#D4A820" opacity="0.7"/></svg></div>
+                <span class="drop-quote">&ldquo;</span>
+                I accept that certainty is an illusion.<br>
+                I will trade absolutes for probabilities.<br>
+                I will judge my process before my outcome.<br>
+                I will stay humble before luck.<br>
+                I will update when the evidence does.<br>
+                I will guard my downside before I chase my upside.<br>
+                I will choose truth over comfort.<br>
+                I will walk the fog with courage, humility, and reason.
+            </div>
+        </div>
+    </div>
+
+    <!-- ARCHIVE LIST -->
+    <div class="body-row">
+        <div class="margin-col">
+            <div class="margin-note">
+                <span class="margin-label">The Wider Archive</span>
+                Kairox does not stand apart from the Anchor. It is the fog beneath the sovereign bet.
+            </div>
+            <div class="margin-ornament">❧</div>
+        </div>
+        <div class="text-col">
+            <p>Kairox is one book within the wider record of Sovereign Anchor Holding's thinking.</p>
+            <ul class="archive-list">
+                <li><a href="Library.pdf" target="_blank">The Library</a></li>
+                <li><a href="Research Framework.pdf" target="_blank">Research Framework</a></li>
+                <li><a href="2026_annual_data.pdf" target="_blank">2026 Annual Data</a></li>
+                <li><a href="April,2026 Dialogue.pdf" target="_blank">April, 2026 Dialogue</a></li>
+                <li><a href="July,2026 Dialogue.pdf" target="_blank">July, 2026 Dialogue</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="full-bleed footer">
+        <svg viewBox="0 0 800 30" width="100%" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="15" x2="800" y2="15" stroke="url(#hdg)" stroke-width="1.2"/>
+          <path d="M70,15 Q100,6 130,15 Q160,24 190,15" fill="none" stroke="#D4A820" stroke-width="1" opacity="0.45"/>
+          <path d="M730,15 Q700,6 670,15 Q640,24 610,15" fill="none" stroke="#D4A820" stroke-width="1" opacity="0.45"/>
+          <polygon points="400,7 407,15 400,23 393,15" fill="#D4A820" opacity="0.8"/>
+          <polygon points="385,11 389,15 385,19 381,15" fill="#D4A820" opacity="0.5"/>
+          <polygon points="415,11 419,15 415,19 411,15" fill="#D4A820" opacity="0.5"/>
+        </svg>
+        <svg width="46" height="42" viewBox="0 0 130 120" style="display:block;margin:18px auto 0;opacity:0.38;" xmlns="http://www.w3.org/2000/svg">
+          <path d="M65,8 L100,18 L100,60 Q100,90 65,106 Q30,90 30,60 L30,18 Z" fill="none" stroke="#D4A820" stroke-width="1.8"/>
+          <g transform="translate(65,52)">
+            <rect x="-18" y="13" width="36" height="7" rx="1" fill="#D4A820"/>
+            <path d="M-18,13 L-18,-1 L-9,7 L0,-13 L9,7 L18,-1 L18,13 Z" fill="#D4A820"/>
+            <circle cx="0" cy="-3" r="3" fill="#4A1268"/>
+          </g>
+        </svg>
+        <p>&ldquo;We walk the fog with courage, humility, and reason.&rdquo;</p>
+        <div class="footer-mark">Sovereign Anchor Holding &nbsp;·&nbsp; Kairox</div>
+    </div>
+
+</div>
+
+</body>
+</html>
