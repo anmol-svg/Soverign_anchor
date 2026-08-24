@@ -486,6 +486,15 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
     font-size: 11px; color: var(--crimson-mid);
 }
 
+/* Tones down a bright, modern chart export (white background, saturated
+   line colours) so it reads as part of the manuscript rather than a
+   screenshot pasted on top of it. Sepia warms the whites toward vellum;
+   saturate/brightness/contrast pull the line colours down without
+   losing which line is which. */
+.returns-chart {
+    filter: sepia(0.45) saturate(0.5) brightness(0.95) contrast(1.08);
+}
+
 /* ──── RESPONSIVE ──── */
 @media (max-width: 1024px) {
     .page-outer { padding: 60px 40px 100px; }
@@ -809,7 +818,7 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
         </div>
 
         <div class="image-block" style="margin: 40px 0 6px;">
-            <img src="returns.png" alt="Equity NAV vs Nifty 50 and Nifty 500 since inception" loading="lazy"/>
+            <img src="returns.png" alt="Equity NAV vs Nifty 50 and Nifty 500 since inception" loading="lazy" class="returns-chart"/>
             <div class="image-caption">
                 Equity against Nifty 50 and Nifty 500, indexed since <b>23 December 2025</b>. The separation from May onward is the discipline showing up in the tape, not just the thesis.
             </div>
