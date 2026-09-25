@@ -455,36 +455,7 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
     color: var(--ink-faint); text-align: center;
     margin-bottom: 38px;
 }
-.pie-wrap {
-    display: flex;
-    justify-content: center;
-    margin: 6px 0 32px;
-}
-.pie-wrap svg {
-    filter: drop-shadow(2px 5px 14px rgba(0,0,0,0.20));
-    max-width: 100%; height: auto;
-}
-.pie-legend {
-    display: flex; flex-wrap: wrap;
-    justify-content: center;
-    gap: 11px 28px;
-    max-width: 620px;
-    margin: 0 auto;
-}
-.pie-legend .legend-item {
-    display: flex; align-items: center; gap: 8px;
-    font-family: "Cormorant Garamond", serif;
-    font-size: 14.5px; color: var(--ink-soft);
-}
-.pie-legend .swatch {
-    width: 11px; height: 11px; border-radius: 2px;
-    display: inline-block; flex-shrink: 0;
-    border: 1px solid rgba(0,0,0,0.15);
-}
-.pie-legend .legend-pct {
-    font-family: "Cinzel", serif;
-    font-size: 11px; color: var(--crimson-mid);
-}
+
 
 /* Tones down a bright, modern chart export (white background, saturated
    line colours) so it reads as part of the manuscript rather than a
@@ -493,6 +464,58 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
    losing which line is which. */
 .returns-chart {
     filter: sepia(0.45) saturate(0.5) brightness(0.95) contrast(1.08);
+}
+
+.legend-pct {
+    font-family: "Cinzel", serif;
+    font-size: 11px; color: var(--crimson-mid);
+}
+
+/* ──── RETURNS TABLE — year-on-year, grows by one column per FY ──── */
+.returns-table-wrap { margin: 18px 0 4px; overflow-x: auto; }
+.returns-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 16px;
+}
+.returns-table th {
+    font-family: "Cinzel", serif;
+    font-size: 9.5px; font-weight: 500;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold);
+    padding: 0 14px 12px;
+    border-bottom: 1.5px solid var(--gold-mid);
+    text-align: center;
+}
+.returns-table th:first-child { text-align: left; }
+.returns-table .rt-sub {
+    display: block;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 12px; font-style: italic;
+    letter-spacing: 0; text-transform: none;
+    color: var(--ink-faint);
+    margin-top: 3px;
+}
+.returns-table td {
+    padding: 14px;
+    text-align: center;
+    border-bottom: 1px solid var(--vellum-deep);
+    color: var(--ink-mid);
+}
+.returns-table td:first-child { text-align: left; font-style: italic; }
+.returns-table tr.row-self td {
+    color: var(--ink);
+    font-weight: 600;
+    background: rgba(107,21,32,0.05);
+}
+.returns-table tr.row-self td:first-child { color: var(--crimson-mid); }
+.returns-table-note {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 12.5px; font-style: italic;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 14px;
 }
 
 /* ──── RESPONSIVE ──── */
@@ -520,7 +543,7 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
     .image-stack .stack-item img { max-height: 340px; }
     .image-stack .stack-divider { width: 80%; }
     .book-section { padding: 34px 30px; margin: 50px 0; }
-    .pie-wrap svg { width: 260px; height: 260px; }
+    .returns-table th, .returns-table td { padding: 10px 8px; font-size: 14px; }
 }
 @media (max-width: 480px) {
     body { font-size: 16px; }
@@ -543,9 +566,9 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
     .portal-button { padding: 14px 30px; font-size: 10px; letter-spacing: 3px; }
     .book-section { padding: 26px 18px; margin: 40px 0; }
     .book-title { font-size: 21px; }
-    .pie-wrap svg { width: 220px; height: 220px; }
-    .pie-legend { gap: 8px 18px; }
-    .pie-legend .legend-item { font-size: 13px; }
+    .returns-table { font-size: 13px; }
+    .returns-table th { font-size: 8.5px; letter-spacing: 1px; padding: 0 6px 8px; }
+    .returns-table td { padding: 10px 6px; }
 }
     </style>
 </head>
@@ -771,6 +794,11 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
                 <span class="margin-label">On the Price</span>
                 Growth is common. Growth at a reasonable price is not. We index the difference in basis points, not adjectives.
             </div>
+            <div class="margin-ornament">⚜</div>
+            <div class="margin-note" style="margin-top:40px;">
+                <span class="margin-label">On Timing</span>
+                A permanent discount is a warning. A temporary one, on a business built to outlast it, is the entire opportunity.
+            </div>
         </div>
         <div class="text-col">
             <h3><span class="numeral">I.</span> The Sovereign Bet — The Soil</h3>
@@ -786,42 +814,54 @@ a:hover { color: var(--crimson); border-bottom-color: var(--crimson); }
             <h3><span class="numeral">III.</span> The Price We Pay</h3>
             <p>Every name in our working universe is held to three tests: five-year profit growth, five-year return on equity, and the price being asked for both. Across the 135 businesses we track on the Nifty 500, growth averages 28.4% a year and ROE 24.0% — against an average price of 42 times earnings. We flag only ten as buys, and twenty-three as sells; the rest we leave alone.</p>
             <p>The seven positions in the live book are drawn from this same list. Weighted by capital, the book's growth runs hotter than the universe average — 40% against 28% — its ROE holds close, and it was assembled at roughly 21 times earnings: about half of what the universe pays, on average, for far less growth. We do not pay up for growth. We wait until growth is priced like it isn't there.</p>
+            <h3><span class="numeral">IV.</span> The Setup We Wait For</h3>
+            <p>The businesses we favour share a shape more than a sector: <b>structural tailwinds</b> strong enough to outlast a cycle, and a <b>proven track record</b> of turning that wind into profit. What makes them ours to buy is timing — the market has mistaken a passing, temporary headwind for a permanent one, and priced the business as though the tailwind had stopped blowing. In that gap we find our <b>margin of safety</b>, a risk-reward tilted heavily in our favour, and the potential for a <b>re-rating</b> once the headwind clears. Underneath it all, <b>profit growth</b> stays healthy throughout — so the wait is paid for long before the market changes its mind.</p>
         </div>
     </div>
 
-    <!-- THE BOOK, AS WEIGHTED -->
+    <!-- THE RESULT, AS MEASURED (performance only — no holdings disclosed) -->
     <div class="full-bleed book-section">
         <div class="book-eyebrow">The Live Implementation</div>
-        <div class="book-title">The Book, As Weighted</div>
-        <div class="book-asof">As of 19 August 2026 &middot; seven positions, by share of current capital</div>
+        <div class="book-title">The Result, As Measured</div>
+        <div class="book-asof">As of 24 September 2026 &middot; since inception, 23 December 2025 &middot; position-level holdings are not published here</div>
 
-        <div class="pie-wrap">
-            <svg viewBox="0 0 320 320" width="300" height="300" xmlns="http://www.w3.org/2000/svg">
-                <path d="M160,160 L160.00,12.00 A148,148 0 0,1 305.50,132.91 Z" fill="var(--crimson)" stroke="var(--vellum-mid)" stroke-width="2.5"/>
-                <path d="M160,160 L305.50,132.91 A148,148 0 0,1 241.49,283.55 Z" fill="var(--gold-bright)" stroke="var(--vellum-mid)" stroke-width="2.5"/>
-                <path d="M160,160 L241.49,283.55 A148,148 0 0,1 117.37,301.73 Z" fill="var(--ink-soft)" stroke="var(--vellum-mid)" stroke-width="2.5"/>
-                <path d="M160,160 L117.37,301.73 A148,148 0 0,1 24.62,219.80 Z" fill="var(--crimson-light)" stroke="var(--vellum-mid)" stroke-width="2.5"/>
-                <path d="M160,160 L24.62,219.80 A148,148 0 0,1 21.62,107.51 Z" fill="var(--gold-mid)" stroke="var(--vellum-mid)" stroke-width="2.5"/>
-                <path d="M160,160 L21.62,107.51 A148,148 0 0,1 87.24,31.12 Z" fill="var(--crimson-mid)" stroke="var(--vellum-mid)" stroke-width="2.5"/>
-                <path d="M160,160 L87.24,31.12 A148,148 0 0,1 159.91,12.00 Z" fill="var(--gold-pale)" stroke="var(--vellum-mid)" stroke-width="2.5"/>
-            </svg>
-        </div>
-
-        <div class="pie-legend">
-            <span class="legend-item"><span class="swatch" style="background:var(--crimson)"></span>Muthoot Finance <span class="legend-pct">22.1%</span></span>
-            <span class="legend-item"><span class="swatch" style="background:var(--gold-bright)"></span>Aptus Value Housing <span class="legend-pct">18.6%</span></span>
-            <span class="legend-item"><span class="swatch" style="background:var(--ink-soft)"></span>Caplin Point Labs <span class="legend-pct">13.9%</span></span>
-            <span class="legend-item"><span class="swatch" style="background:var(--crimson-light)"></span>Cholamandalam Inv. <span class="legend-pct">13.7%</span></span>
-            <span class="legend-item"><span class="swatch" style="background:var(--gold-mid)"></span>Bajaj Finance <span class="legend-pct">12.4%</span></span>
-            <span class="legend-item"><span class="swatch" style="background:var(--crimson-mid)"></span>Waaree Energies <span class="legend-pct">11.1%</span></span>
-            <span class="legend-item"><span class="swatch" style="background:var(--gold-pale)"></span>KPIT Technologies <span class="legend-pct">8.2%</span></span>
-        </div>
-
-        <div class="image-block" style="margin: 40px 0 6px;">
-            <img src="returns.png" alt="Equity NAV vs Nifty 50 and Nifty 500 since inception" loading="lazy" class="returns-chart"/>
+        <div class="image-block" style="margin: 10px 0 6px;">
+            <img src="returns.png" alt="Portfolio and Equity NAV vs Nifty 50 and Nifty 500 since inception" loading="lazy" class="returns-chart"/>
             <div class="image-caption">
-                Equity against Nifty 50 and Nifty 500, indexed since <b>23 December 2025</b>. The separation from May onward is the discipline showing up in the tape, not just the thesis.
+                Equity against Nifty 50 and Nifty 500, indexed since inception on <b>23 December 2025</b>. The gap over Nifty 50 has held wide since the recovery began in April; the edge over Nifty 500 is thinner, but it has held too.
             </div>
+        </div>
+
+        <div class="book-eyebrow" style="margin-top:44px;">Returns, Year on Year</div>
+
+        <div class="returns-table-wrap">
+            <table class="returns-table">
+                <thead>
+                    <tr>
+                        <th scope="col">&nbsp;</th>
+                        <th scope="col">Since Inception<br><span class="rt-sub">23 Dec 2025 &ndash; 24 Sep 2026</span></th>
+                        <th scope="col">Out-performance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row-self">
+                        <td>Sovereign Anchor Holding</td>
+                        <td>&minus;3.59%</td>
+                        <td>&mdash;</td>
+                    </tr>
+                    <tr>
+                        <td>Nifty 50</td>
+                        <td>&minus;10.44%</td>
+                        <td class="legend-pct">+6.85%</td>
+                    </tr>
+                    <tr>
+                        <td>Nifty 500</td>
+                        <td>&minus;4.04%</td>
+                        <td class="legend-pct">+0.45%</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="returns-table-note">A new column joins this table at the close of each financial year. For now, this is the full record since inception.</div>
         </div>
     </div>
 
